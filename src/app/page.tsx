@@ -8,6 +8,9 @@ export default async function HomePage() {
 	return (
 		<main className="">
 			Hello! Welcome to DC20 Beyond! (WIP)
+			{posts.map(post => (
+				<div key={post.id}>{post.name}</div>
+			))}
 		</main>
 	);
 }
