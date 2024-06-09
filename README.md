@@ -1,8 +1,9 @@
 # DC20 Digital Character Sheet
 
 ## Todo
-    - [ ] Make it deploy
-    - [ ] Scaffold a basic final character sheet with mock data
+    - [x] Make it deploy
+    - [x] Scaffold basic UI
+    - [x] Tidy up build process
     - [ ] actually set up a DB
     - [ ] Attach DB to UI
     - [ ] Build a basic form scaffold for character creation
