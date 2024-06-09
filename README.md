@@ -5,7 +5,8 @@
     - [x] Scaffold basic UI
     - [x] Tidy up build process
     - [x] actually set up a DB
-    - [x] Attach DB to UI
+    - [ ] Building the actual DB schema
+    - [ ] Build a mock character sheet on the front-end
     - [ ] Build a basic form scaffold for character creation
     - [ ] Error management?
     - [ ] implement routing for this form / the character sheet
