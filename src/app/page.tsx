@@ -1,6 +1,10 @@
-import Link from "next/link";
+import { db } from "~/server/db";
 
-export default function HomePage() {
+export default async function HomePage() {
+	const posts = await db.query.posts.findMany()
+
+	console.log({ posts })
+
 	return (
 		<main className="">
 			Hello! Welcome to DC20 Beyond! (WIP)

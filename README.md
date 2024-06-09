@@ -4,8 +4,8 @@
     - [x] Make it deploy
     - [x] Scaffold basic UI
     - [x] Tidy up build process
-    - [ ] actually set up a DB
-    - [ ] Attach DB to UI
+    - [x] actually set up a DB
+    - [x] Attach DB to UI
     - [ ] Build a basic form scaffold for character creation
     - [ ] Error management?
     - [ ] implement routing for this form / the character sheet
