@@ -1,4 +1,4 @@
-declare class Character {
+export class Character {
 	// Foundational aspecs a player chooses
 	name: string;
 	level: number;
@@ -12,33 +12,43 @@ declare class Character {
 	};
 	attributeSaveMasteries: string[];
 	skillMasteries: {
-		[string]: { skillName: string; skillLevel: number; skillType: string };
+		[skillName: string]: {
+			skillName: string;
+			skillLevel: number;
+			skillType: string;
+		};
 	};
 	trades: {
-		[string]: { tradeName: string; tradeLevel: number; tradeAttribute: string };
+		[tradeName: string]: {
+			tradeName: string;
+			tradeLevel: number;
+			tradeAttribute: string;
+		};
 	};
 	languages: {
-		[string]:{ languageName: string;
-		languageLevel: number; }
+		[languageName: string]: {
+			languageName: string;
+			languageLevel: number;
+		};
 	};
 	charClass: string;
-	classAttributes: {
-		attributeName: string;
-		attributeDesc: string;
-	}[];
+	// classAttributes: {
+	//   attributeName: string;
+	//   attributeDesc: string;
+	// }[];
 	armorBonus: number;
 	flavor: string;
 
 	// A list of things I'd want to save between sessions
-	hp: PlayerCounter;
-	mp: PlayerCounter;
-	sp: PlayerCounter;
-	ap: PlayerCounter;
-
-	actions: {
-		name: string;
-		description: string;
-	}[];
+	// hp: PlayerCounter;
+	// mp: PlayerCounter;
+	// sp: PlayerCounter;
+	// ap: PlayerCounter;
+	//
+	// actions: {
+	//   name: string;
+	//   description: string;
+	// }[];
 
 	constructor(params: CharacterCreationParams) {
 		this.name = params.name;
@@ -57,60 +67,76 @@ declare class Character {
 		this.languages = params.languages;
 		this.charClass = params.charClass;
 		this.flavor = params.flavor;
-		this.armorBonus = params.armorBonus
+		this.armorBonus = params.armorBonus;
 	}
 	getPrime(): number {
-		return Math.max(Object.values(this.attributes));
+		return Math.max(...Object.values(this.attributes));
 	}
 
 	getCombatMastery(): number {
 		return Math.ceil(this.level / 2);
 	}
 
-	getSaveBonus(attribute: string): number {
-		const attributeBonus = this.attributes[attribute];
+	getSaveBonus(
+		attribute: Attributes,
+	): number {
+		const attributeBonus: number = this.attributes[attribute];
 		const hasMastery =
 			this.attributeSaveMasteries.findIndex(
 				(mastery) => mastery === attribute,
 			) > -1;
 
-		return attributeBonus + hasMastery ? this.getCombatMastery() : 0;
+		return attributeBonus + (hasMastery ? this.getCombatMastery() : 0);
 	}
 
 	getSkillBonus(skillName: string): number {
-		const {skillType, skillLevel} = this.skillMasteries[skillName];
+		const skillObj = this.skillMasteries[skillName];
 
-		return this.attributes[skillType] + skillMasteryLevels[skillLevel];
+		if (skillObj === undefined) {
+			return 0
+		}
+
+		return this.attributes[skillObj.skillType as Attributes] + (skillMasteryLevels[skillObj.skillLevel] === undefined ? skillMasteryLevels[skillObj.skillLevel] : 0);
 	}
 
 	getTradeBonus(tradeName: string): number {
-		const {tradeAttribute, tradeLevel} = this.trades
+		const { tradeAttribute, tradeLevel } = this.trades;
 
 		return this.attributes[tradeAttribute] + skillMasteryLevels[tradeLevel];
 	}
 
 	getMaxHP(): number {
-		return 6 + this.level + this.attributes.might
+		return 6 + this.level + this.attributes.might;
 	}
 
 	getPhysicalDefense(): number {
-		return 8 + this.getCombatMastery() + this.armorBonus + this.attributes.agility
+		return (
+			8 + this.getCombatMastery() + this.armorBonus + this.attributes.agility
+		);
 	}
 
 	getMysticalDefense(): number {
-		return 8 + this.getCombatMastery() + this.attributes.charisma + this.attributes.intelligence
+		return (
+			8 +
+			this.getCombatMastery() +
+			this.attributes.charisma +
+			this.attributes.intelligence
+		);
 	}
 
 	getAttackCheck(): number {
-		return this.getCombatMastery() + this.getPrime()
+		return this.getCombatMastery() + this.getPrime();
 	}
 
 	getSaveDC(): number {
-		return 8 + this.getCombatMastery() + this.getPrime()
+		return 8 + this.getCombatMastery() + this.getPrime();
 	}
 
 	getMartialCheck(): number {
-		return Math.max(this.getSkillBonus("Athletics"), this.getSkillBonus("Acrobatics"))
+		return Math.max(
+			this.getSkillBonus("Athletics"),
+			this.getSkillBonus("Acrobatics"),
+		);
 	}
 }
 
@@ -122,3 +148,6 @@ declare type PlayerCounter = {
 	current: number;
 	max: number;
 };
+
+export type Attributes = "might" | "agility" | "intelligence" | "charisma"
+
