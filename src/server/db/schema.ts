@@ -3,11 +3,14 @@
 
 import { sql } from "drizzle-orm";
 import {
-  index,
+  // index,
   pgTableCreator,
   serial,
   timestamp,
   varchar,
+  text,
+  integer,
+  json
 } from "drizzle-orm/pg-core";
 
 /**
@@ -18,17 +21,29 @@ import {
  */
 export const createTable = pgTableCreator((name) => `dc20-beyond_${name}`);
 
-export const posts = createTable(
-  "post",
+export const characters = createTable(
+  "character",
   {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
+    char_name: varchar("char_name", { length: 256 }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updatedAt", { withTimezone: true }),
+    char_class: text("char_class"),
+    char_ancestry: text("char_ancestry"),
+    char_level: integer("char_level"),
+    char_data: json("char_data")
+  },
+);
+
+export const users = createTable(
+  "user",
+  {
+    id: serial("id").primaryKey(),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: timestamp("updatedAt", { withTimezone: true }),
   },
-  (example) => ({
-    nameIndex: index("name_idx").on(example.name),
-  })
 );
