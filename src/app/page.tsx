@@ -5,7 +5,9 @@ import { Character } from "~/types"
 export const dynamic = "force-dynamic"
 
 export default async function HomePage() {
-	const characters =  await db.query.characters.findMany()
+	const characters =  await db.query.characters.findMany({
+		orderBy: (model, {desc}) => desc(model.createdAt)
+	})
 
 	return (
 		<main className="px-6">
