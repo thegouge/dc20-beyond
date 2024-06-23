@@ -3,7 +3,6 @@
 
 import { sql } from "drizzle-orm";
 import {
-  // index,
   pgTableCreator,
   serial,
   timestamp,
@@ -12,7 +11,7 @@ import {
   integer,
   json,
 } from "drizzle-orm/pg-core";
-import { CharDBData } from "~/types";
+import { CharDBData, defaultCharData } from "~/types";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -20,6 +19,7 @@ import { CharDBData } from "~/types";
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
+
 export const createTable = pgTableCreator((name) => `dc20-beyond_${name}`);
 
 export const characters = createTable("character", {
@@ -34,19 +34,7 @@ export const characters = createTable("character", {
   char_level: integer("char_level").default(1).notNull(),
   char_data: json("char_data")
     .$type<CharDBData>()
-    .default({
-      playerName: "you",
-      might: 0,
-      agility: 0,
-      charisma: 0,
-      intelligence: 0,
-      classType: "Martial",
-      stamina: 1,
-      mana: 0,
-      hp: 7,
-      armorBonus: 1,
-      flavor: "",
-    })
+    .default(defaultCharData)
     .notNull(),
 });
 
