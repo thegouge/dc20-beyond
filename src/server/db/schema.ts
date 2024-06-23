@@ -10,8 +10,9 @@ import {
   varchar,
   text,
   integer,
-  json
+  json,
 } from "drizzle-orm/pg-core";
+import { CharDBData } from "~/types";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -21,29 +22,38 @@ import {
  */
 export const createTable = pgTableCreator((name) => `dc20-beyond_${name}`);
 
-export const characters = createTable(
-  "character",
-  {
-    id: serial("id").primaryKey(),
-    char_name: varchar("char_name", { length: 256 }),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: timestamp("updatedAt", { withTimezone: true }),
-    char_class: text("char_class"),
-    char_ancestry: text("char_ancestry"),
-    char_level: integer("char_level"),
-    char_data: json("char_data")
-  },
-);
+export const characters = createTable("character", {
+  id: serial("id").primaryKey(),
+  char_name: varchar("char_name", { length: 256 }).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt", { withTimezone: true }),
+  char_class: text("char_class").default("fighter").notNull(),
+  char_ancestry: text("char_ancestry").default("human").notNull(),
+  char_level: integer("char_level").default(1).notNull(),
+  char_data: json("char_data")
+    .$type<CharDBData>()
+    .default({
+      playerName: "you",
+      might: 0,
+      agility: 0,
+      charisma: 0,
+      intelligence: 0,
+      classType: "Martial",
+      stamina: 1,
+      mana: 0,
+      hp: 7,
+      armorBonus: 1,
+      flavor: "",
+    })
+    .notNull(),
+});
 
-export const users = createTable(
-  "user",
-  {
-    id: serial("id").primaryKey(),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: timestamp("updatedAt", { withTimezone: true }),
-  },
-);
+export const users = createTable("user", {
+  id: serial("id").primaryKey(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt", { withTimezone: true }),
+});
