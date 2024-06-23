@@ -1,15 +1,15 @@
-export class Character {
+export type Character = {
 	// Foundational aspecs a player chooses
 	name: string;
+	playerName: string;
 	level: number;
 	ancestry: string;
 	ancestryFeatures: string[];
-	attributes: {
-		might: number;
-		agility: number;
-		charisma: number;
-		intelligence: number;
-	};
+	prime: number;
+	might: number;
+	agility: number;
+	charisma: number;
+	intelligence: number;
 	attributeSaveMasteries: string[];
 	skillMasteries: {
 		[skillName: string]: {
@@ -22,7 +22,7 @@ export class Character {
 		[tradeName: string]: {
 			tradeName: string;
 			tradeLevel: number;
-			tradeAttribute: string;
+			tradeAttribute: Attributes;
 		};
 	};
 	languages: {
@@ -32,10 +32,11 @@ export class Character {
 		};
 	};
 	charClass: string;
-	// classAttributes: {
-	//   attributeName: string;
-	//   attributeDesc: string;
-	// }[];
+	charClassType: ClassTypes;
+	classAttributes: {
+		attributeName: string;
+		attributeDesc: string;
+	}[];
 	armorBonus: number;
 	flavor: string;
 
@@ -49,105 +50,88 @@ export class Character {
 	//   name: string;
 	//   description: string;
 	// }[];
-
-	constructor(params: CharacterCreationParams) {
-		this.name = params.name;
-		this.level = params.level;
-		this.ancestry = params.ancestry;
-		this.ancestryFeatures = params.ancestryFeatures;
-		this.attributes = {
-			might: params.might,
-			agility: params.agility,
-			charisma: params.charisma,
-			intelligence: params.intelligence,
-		};
-		this.attributeSaveMasteries = params.attributeSaveMasteries;
-		this.skillMasteries = params.skillMasteries;
-		this.trades = params.trades;
-		this.languages = params.languages;
-		this.charClass = params.charClass;
-		this.flavor = params.flavor;
-		this.armorBonus = params.armorBonus;
-	}
-	getPrime(): number {
-		return Math.max(...Object.values(this.attributes));
-	}
-
-	getCombatMastery(): number {
-		return Math.ceil(this.level / 2);
-	}
-
-	getSaveBonus(
-		attribute: Attributes,
-	): number {
-		const attributeBonus: number = this.attributes[attribute];
-		const hasMastery =
-			this.attributeSaveMasteries.findIndex(
-				(mastery) => mastery === attribute,
-			) > -1;
-
-		return attributeBonus + (hasMastery ? this.getCombatMastery() : 0);
-	}
-
-	getSkillBonus(skillName: string): number {
-		const skillObj = this.skillMasteries[skillName];
-
-		if (skillObj === undefined) {
-			return 0
-		}
-
-		return this.attributes[skillObj.skillType as Attributes] + (skillMasteryLevels[skillObj.skillLevel] === undefined ? skillMasteryLevels[skillObj.skillLevel] : 0);
-	}
-
-	getTradeBonus(tradeName: string): number {
-		const { tradeAttribute, tradeLevel } = this.trades;
-
-		return this.attributes[tradeAttribute] + skillMasteryLevels[tradeLevel];
-	}
-
-	getMaxHP(): number {
-		return 6 + this.level + this.attributes.might;
-	}
-
-	getPhysicalDefense(): number {
-		return (
-			8 + this.getCombatMastery() + this.armorBonus + this.attributes.agility
-		);
-	}
-
-	getMysticalDefense(): number {
-		return (
-			8 +
-			this.getCombatMastery() +
-			this.attributes.charisma +
-			this.attributes.intelligence
-		);
-	}
-
-	getAttackCheck(): number {
-		return this.getCombatMastery() + this.getPrime();
-	}
-
-	getSaveDC(): number {
-		return 8 + this.getCombatMastery() + this.getPrime();
-	}
-
-	getMartialCheck(): number {
-		return Math.max(
-			this.getSkillBonus("Athletics"),
-			this.getSkillBonus("Acrobatics"),
-		);
-	}
-}
-
-const skillMasteryLevels = [0, 2, 4, 6, 8, 10];
-
-declare type CharacterCreationParams = any;
-
-declare type PlayerCounter = {
-	current: number;
-	max: number;
 };
 
-export type Attributes = "might" | "agility" | "intelligence" | "charisma"
+export type CharDB = {
+	id: number;
+	char_name: string;
+	createdAt: any;
+	updatedAt: any;
+	char_class: string;
+	char_ancestry: string;
+	char_level: number;
+	char_data: CharDBData;
+};
+
+export type CharDBData = {
+	playerName: string;
+	might: number;
+	agility: number;
+	charisma: number;
+	intelligence: number;
+	classType: string;
+	stamina: number;
+	mana: number;
+	hp: number;
+	armorBonus: number;
+	flavor: string;
+};
+
+export type Attributes =
+	| "might"
+	| "agility"
+	| "intelligence"
+	| "charisma"
+	| "prime";
+export type ClassTypes = "Martial" | "Spellcaster" | "Hybrid";
+
+export type Skill = {
+	name: string;
+	attribute: Attributes;
+};
+
+export const DEFAULT_CHAR_DATA = {
+	playerName: "you",
+	might: 0,
+	agility: 0,
+	charisma: 0,
+	intelligence: 0,
+	classType: "Martial",
+	stamina: 1,
+	mana: 0,
+	hp: 7,
+	armorBonus: 1,
+	flavor: "",
+};
+
+export const DEFAULT_DB_CHAR = {
+	id: 0,
+	char_name: "",
+	createdAt: Date.now(),
+	updatedAt: Date.now(),
+	char_class: "Fighter",
+	char_ancestry: "Human",
+	char_level: 1,
+	char_data: DEFAULT_CHAR_DATA,
+};
+
+export const SKILL_MASTERY_LEVELS = [0, 2, 4, 6, 8, 10];
+
+export const PRIME_SKILLS = ["Awareness"];
+
+export const MIGHT_SKILLS = ["Athletics", "Intimidation"];
+
+export const AGILITY_SKILLS = ["Acrobatics", "Trickery", "Stealth"];
+
+export const CHARISMA_SKILLS = ["Animal", "Influence", "Insight"];
+
+export const INTELLIGENCE_SKILLS = ["Investigation", "Medicine", "Survival"];
+
+export const KNOWLEDGE_SKILLS = [
+	"Arcana",
+	"History",
+	"Nature",
+	"Occultism",
+	"Religion",
+];
 
