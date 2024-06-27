@@ -1,0 +1,8 @@
+.stat-box {
+  @apply p-5 border border-white;
+}
+
+.top-block {
+align-items: center;
+}
+
