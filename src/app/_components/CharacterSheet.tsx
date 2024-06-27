@@ -29,6 +29,7 @@ export default function heet({ character }: PropTypes) {
   const [restPoints] = useState(character.level + character.might);
   const [gritPoints] = useState(2 + character.charisma);
 
+  console.log({character})
   return (
     <article className="sheet grid grid-cols-3">
       <section className="top-block col-span-3 flex w-full justify-between">
@@ -70,34 +71,42 @@ export default function heet({ character }: PropTypes) {
         </div>
       </section>
       {/* character.sidebar */}
-      <section className="stat-box flex">
+      <section className="stat-box row-span-2 flex flex-col">
         <div className="stat-box">
-          <div>Prime:</div>
-          <div>{character.prime}</div>
-          <SkillList attribute="prime" />
+          <SkillList
+            attribute="prime"
+            character={character}
+          />
         </div>
         <div className="stat-box">
-          <div>Might:</div>
-          <div>{character.might}</div>
-          <SkillList attribute="might" />
+          <SkillList
+            attribute="might"
+            character={character}
+          />
         </div>
         <div className="stat-box">
-          <div>Agility:</div>
-          <div>{character.agility}</div>
-          <SkillList attribute="agility" />
+          <SkillList
+            attribute="agility"
+            character={character}
+          />
         </div>
         <div className="stat-box">
-          <div>Charisma:</div>
-          <div>{character.charisma}</div>
-          <SkillList attribute="charisma" />
+          <SkillList
+            attribute="charisma"
+            character={character}
+          />
         </div>
         <div className="stat-box">
-          <div>Intelligence:</div>
-          <div>{character.intelligence}</div>
-          <SkillList attribute="intelligence" />
+          <SkillList
+            attribute="intelligence"
+            character={character}
+          />
           <div>
             <span>Knowledge</span>
-            <SkillList attribute="knowledge" />
+            <SkillList
+              attribute="knowledge"
+              character={character}
+            />
           </div>
         </div>
       </section>

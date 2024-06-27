@@ -1,11 +1,4 @@
-import {
-  Attributes,
-  CharDB,
-  CharDBData,
-  Character,
-  ClassTypes,
-  SKILL_MASTERY_LEVELS,
-} from "~/types";
+import { Attributes, CharDB, CharDBData, Character, ClassTypes, SKILL_MASTERY_LEVELS, SKILL_NAMES } from "~/types";
 
 export function CharDBtoCharacter(params: CharDB): Character {
   const stats = params.char_data;
@@ -21,9 +14,9 @@ export function CharDBtoCharacter(params: CharDB): Character {
     intelligence: stats.intelligence,
     prime: usePrime(stats),
     attributeSaveMasteries: [], // stats.attributeSaveMasteries;
-    skillMasteries: {}, // stats.skillMasteries;
-    trades: {}, // stats.trades;
-    languages: {}, // stats.languages;
+    skillMasteries: stats.skillMasteries,
+    trades: stats.trades,
+    languages: stats.languages,
     charClass: params.char_class,
     charClassType: useClassType(params.char_class),
     classAttributes: [], // stats.classAttributes
@@ -55,7 +48,7 @@ function useClassType(charClass: string): ClassTypes {
   }
 }
 
-export function usePrime(stats: CharDBData): number {
+export function usePrime(stats: CharDBData | Character): number {
   return Math.max(
     ...Object.values([
       stats.might,
@@ -83,37 +76,38 @@ export function useSaveBonus(
   return attributeBonus + (hasMastery ? useCombatMastery(character) : 0);
 }
 
-export function useSkillBonus(character: Character, skillName: string): number {
-  const skillObj = character.skillMasteries[skillName];
+export function useSkillBonus(
+  character: Character,
+  skillName: SKILL_NAMES,
+  attribute: Attributes | "knowledge",
+): number {
+  const skillLevel: number =
+    character.skillMasteries?.[attribute]?.[skillName] || 0;
 
-  if (skillObj === undefined) {
-    return 0;
+if (attribute === "knowledge") {
+    attribute = "intelligence"
   }
 
-  const skillLevel = skillObj.skillLevel;
-
-  return (
-    character[skillObj.skillType as Attributes] +
-    (SKILL_MASTERY_LEVELS?.[skillLevel] !== undefined
-      ? SKILL_MASTERY_LEVELS[skillLevel]
-      : 0)
-  );
+  return character[attribute] + ( SKILL_MASTERY_LEVELS?.[skillLevel] || 0 );
 }
 
-export function useTradeBonus(character: Character, tradeName: string): number {
-  const tradeObj = character.trades[tradeName];
-
-  if (tradeObj === undefined) {
-    return 0;
-  }
-
-  const tradeLevel = tradeObj?.tradeLevel || 0;
-
-  return (
-    character[tradeObj.tradeAttribute] +
-    (SKILL_MASTERY_LEVELS[tradeLevel] ? SKILL_MASTERY_LEVELS[tradeLevel] : 0)
-  );
-}
+// TODO:
+// See if I need this still
+//
+// export function useTradeBonus(character: Character, tradeName: string): number {
+//   const tradeObj = character.trades[tradeName];
+//
+//   if (tradeObj === undefined) {
+//     return 0;
+//   }
+//
+//   const tradeLevel = tradeObj?.tradeLevel || 0;
+//
+//   return (
+//     character[tradeObj.tradeAttribute] +
+//     (SKILL_MASTERY_LEVELS[tradeLevel] ? SKILL_MASTERY_LEVELS[tradeLevel] : 0)
+//   );
+// }
 
 export function useMaxHP(character: Character): number {
   return 6 + character.level + character.might;
@@ -158,7 +152,7 @@ export function useSaveDC(character: Character): number {
 
 export function useMartialCheck(character: Character): number {
   return Math.max(
-    useSkillBonus(character, "Athletics"),
-    useSkillBonus(character, "Acrobatics"),
+    useSkillBonus(character, "athletics", "might"),
+    useSkillBonus(character, "acrobatics", "agility"),
   );
 }
