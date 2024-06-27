@@ -102,7 +102,7 @@ export const DEFAULT_CHAR_DATA = {
 	hp: 7,
 	armorBonus: 1,
 	flavor: "",
-};
+} as const;
 
 export const DEFAULT_DB_CHAR = {
 	id: 0,
@@ -113,25 +113,22 @@ export const DEFAULT_DB_CHAR = {
 	char_ancestry: "Human",
 	char_level: 1,
 	char_data: DEFAULT_CHAR_DATA,
-};
+} as const;
 
-export const SKILL_MASTERY_LEVELS = [0, 2, 4, 6, 8, 10];
+export const SKILL_MASTERY_LEVELS = [0, 2, 4, 6, 8, 10] as const;
 
-export const PRIME_SKILLS = ["Awareness"];
-
-export const MIGHT_SKILLS = ["Athletics", "Intimidation"];
-
-export const AGILITY_SKILLS = ["Acrobatics", "Trickery", "Stealth"];
-
-export const CHARISMA_SKILLS = ["Animal", "Influence", "Insight"];
-
-export const INTELLIGENCE_SKILLS = ["Investigation", "Medicine", "Survival"];
-
-export const KNOWLEDGE_SKILLS = [
+export const SKILLS = {
+	prime: ["Awareness"],
+	might: ["Athletics", "Intimidation"],
+	agility: ["Acrobatics", "Trickery", "Stealth"],
+	charisma: ["Animal", "Influence", "Insight"],
+	intelligence: ["Investigation", "Medicine", "Survival"],
+	knowledge: [
 	"Arcana",
 	"History",
 	"Nature",
 	"Occultism",
 	"Religion",
-];
+],
+} as const
 
