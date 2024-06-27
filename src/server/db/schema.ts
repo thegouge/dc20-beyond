@@ -36,6 +36,7 @@ export const characters = createTable("character", {
     .$type<CharDBData>()
     .default(DEFAULT_CHAR_DATA)
     .notNull(),
+  // userId: integer("userId").notNull().references(()=> user.id)
 });
 
 export const users = createTable("user", {
