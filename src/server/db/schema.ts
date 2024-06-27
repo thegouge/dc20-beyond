@@ -11,7 +11,7 @@ import {
   integer,
   json,
 } from "drizzle-orm/pg-core";
-import { CharDBData, defaultCharData } from "~/types";
+import { CharDBData, DEFAULT_CHAR_DATA } from "~/types";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -34,7 +34,7 @@ export const characters = createTable("character", {
   char_level: integer("char_level").default(1).notNull(),
   char_data: json("char_data")
     .$type<CharDBData>()
-    .default(defaultCharData)
+    .default(DEFAULT_CHAR_DATA)
     .notNull(),
 });
 
