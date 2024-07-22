@@ -1,8 +1,16 @@
 .stat-box {
-  @apply p-5 border border-white;
+  @apply border border-white p-5;
 }
 
 .top-block {
-align-items: center;
+  align-items: center;
+}
+
+.number-flipper {
+  @apply bg-gray-900 p-3 pr-0;
+}
+
+.action-box {
+  transform: scale(-2, 2) rotate(-45deg);
 }
 
