@@ -14,7 +14,7 @@ export default function SkillList({ attribute, character }: PropTypes) {
 
       if (attribute === "knowledge") {
         return (
-          <div>
+          <div key={skillName}>
             {skillName}:
             {character.intelligence + (SKILL_MASTERY_LEVELS[skillLevel] || 0)}
           </div>
@@ -22,7 +22,7 @@ export default function SkillList({ attribute, character }: PropTypes) {
       }
 
       return (
-        <div>
+        <div key={skillName}>
           {skillName}:
           {character[attribute] + (SKILL_MASTERY_LEVELS[skillLevel] || 0)}
         </div>
