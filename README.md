@@ -14,6 +14,13 @@
     - [x] Adding some basic interactivity to the character sheet
     - [ ] Storing that interactivity to the db
     - [ ] Build a basic form scaffold for character creation
+        - [ ] Attribute Scores
+            - [ ] Standard Array
+            - [ ] Point buy
+            - [ ] Roll/manual
+            - [ ] Choose saves
+        - [ ] Background
+            - [ ]
     - [ ] implement routing for this form / the character sheet
     - [ ] Start populating this form with choices from the core rulebook
         - this will likely require the actual rulebook

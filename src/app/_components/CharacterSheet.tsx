@@ -19,7 +19,7 @@ type PropTypes = {
   character: Character;
 };
 
-export default function heet({ character }: PropTypes) {
+export default function CharacterSheet({ character }: PropTypes) {
   const maxHP = useMaxHP(character);
   const maxStamina = useMaxStamina(character);
   const maxMana = useMaxMana(character);
