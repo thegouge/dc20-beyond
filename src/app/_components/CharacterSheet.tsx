@@ -232,7 +232,7 @@ export default function CharacterSheet({ character }: PropTypes) {
             Action points:
             <button
               onClick={resetActionPoints}
-              className="ml-2 rounded border border-white p-2"
+              className="outline-button"
             >
               Reset Actions
             </button>
