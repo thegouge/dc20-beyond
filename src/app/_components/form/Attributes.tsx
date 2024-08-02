@@ -72,17 +72,14 @@ export default function AttributesForm({ advance }) {
   }
 
   function handleSubmit(e: any) {
-    e.preventDefault()
+    e.preventDefault();
 
     const payload = {
       ...attributes,
-      bonuses: {
-        bonus1,
-        bonus2
-      }
-    }
+      bonuses: [bonus1, bonus2],
+    };
 
-    advance("attributes", payload)
+    advance(payload);
   }
 
   return (
@@ -266,7 +263,9 @@ export default function AttributesForm({ advance }) {
             })}
         </select>
       </div>
-      <button className="outline-button my-3" type="submit">Submit</button>
+      <button className="outline-button my-3" type="submit">
+        Submit
+      </button>
     </form>
   );
 }

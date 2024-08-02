@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Attributes from "~/app/_components/form/Attributes";
 
 export default function Form() {
@@ -9,11 +12,10 @@ export default function Form() {
     "Weapons",
   ];
 
-  const aggregate = {};
+  const [aggregate, setAggregate] = useState({});
 
-  function advance(stage, payload) {
-    aggregate[stage] = payload;
-    console.log({ aggregate });
+  function advance(type, e) {
+    console.log({ type, e });
   }
 
   return (
