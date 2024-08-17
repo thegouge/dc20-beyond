@@ -5,7 +5,11 @@ import { useState } from "react";
 
 const standardArray = [3, 1, 0, -2];
 
-export default function AttributesForm({ advance }) {
+type PropTypes = {
+  advance: any
+}
+
+export default function AttributesForm({ advance }: PropTypes) {
   const [selectedSA, setSelectedSA] = useState([false, false, false, false]);
   const [attributes, setAttributes] = useState({
     might: { mod: -1, save: false },

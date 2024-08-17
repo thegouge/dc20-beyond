@@ -1,4 +1,12 @@
-import { Attributes, CharDB, CharDBData, Character, ClassTypes, SKILL_MASTERY_LEVELS, SKILL_NAMES } from "~/types";
+import {
+  Attributes,
+  CharDB,
+  CharDBData,
+  Character,
+  ClassTypes,
+  SKILL_MASTERY_LEVELS,
+  SKILL_NAMES,
+} from "~/types";
 
 export function CharDBtoCharacter(params: CharDB): Character {
   const stats = params.char_data;
@@ -84,11 +92,11 @@ export function useSkillBonus(
   const skillLevel: number =
     character.skillMasteries?.[attribute]?.[skillName] || 0;
 
-if (attribute === "knowledge") {
-    attribute = "intelligence"
+  if (attribute === "knowledge") {
+    attribute = "intelligence";
   }
 
-  return character[attribute] + ( SKILL_MASTERY_LEVELS?.[skillLevel] || 0 );
+  return character[attribute] + (SKILL_MASTERY_LEVELS?.[skillLevel] || 0);
 }
 
 // TODO:
