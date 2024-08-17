@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import Attributes from "~/app/_components/form/Attributes";
+import { Character } from "~/types";
 
 export default function Form() {
-  const fromSteps = [
+  const formSteps = [
     "Attributes", // attributes & saves
     "Background", // skills, trades, languages
     "Ancestry",
@@ -12,15 +13,38 @@ export default function Form() {
     "Weapons",
   ];
 
-  const [aggregate, setAggregate] = useState({});
+  const [character] = useState<Character>(new Character());
 
-  function advance(type, e) {
-    console.log({ type, e });
+  function advance(type: string, payload: any) {
+    switch (type) {
+      case "attributes":
+        character.setAttributes(payload);
+        break;
+
+      case "background":
+        character.setBackground(payload);
+        break;
+
+      case "ancestry":
+        character.setAncestry(payload);
+        break;
+
+      case "class":
+        character.setClass(payload);
+        break;
+
+      case "equipment":
+        character.setEquipment(payload);
+        break;
+
+      default:
+        break;
+    }
   }
 
   return (
     <main>
-      <Attributes advance={(e) => advance("attributes", e)} />
+      <Attributes advance={(e: any) => advance("attributes", e)} />
     </main>
   );
 }
