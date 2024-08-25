@@ -119,7 +119,7 @@ export default function AttributesForm({ advance }: PropTypes) {
             ))}
           </select>
           <label className="block">
-            Save Proficiency:
+            Save:
             <input
               className="ml-2"
               type="checkbox"
@@ -153,7 +153,7 @@ export default function AttributesForm({ advance }: PropTypes) {
             ))}
           </select>
           <label className="block">
-            Save Proficiency:
+            Save:
             <input
               className="ml-2"
               type="checkbox"
@@ -187,7 +187,7 @@ export default function AttributesForm({ advance }: PropTypes) {
             ))}
           </select>
           <label className="block">
-            Save Proficiency:
+            Save:
             <input
               className="ml-2"
               type="checkbox"
@@ -221,7 +221,7 @@ export default function AttributesForm({ advance }: PropTypes) {
             ))}
           </select>
           <label className="block">
-            Save Proficiency:
+            Save:
             <input
               className="ml-2"
               type="checkbox"
