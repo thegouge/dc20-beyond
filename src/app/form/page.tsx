@@ -1,50 +1,49 @@
 "use client";
 
-import { useState } from "react";
-import Attributes from "~/app/_components/form/Attributes";
-import { Character } from "~/types";
+import { useRouter } from "next/navigation";
+import { useContext, useState } from "react";
+import { CharacterContext } from "~/helpers/characterContext";
 
-export default function Form() {
-  const formSteps = [
-    "Attributes", // attributes & saves
-    "Background", // skills, trades, languages
-    "Ancestry",
-    "Class",
-    "Weapons",
-  ];
+export default function FormPage() {
+  const character = useContext(CharacterContext);
+  const router = useRouter();
 
-  const [character] = useState<Character>(new Character());
+  const [playerName, setPlayerName] = useState("");
+  const [characterName, setCharacterName] = useState("");
 
-  function advance(type: string, payload: any) {
-    switch (type) {
-      case "attributes":
-        character.setAttributes(payload);
-        break;
+  function handleSubmit(e: any) {
+    e.preventDefault();
 
-      case "background":
-        character.setBackground(payload);
-        break;
+    character.setMetaData({
+      playerName,
+      characterName,
+    });
 
-      case "ancestry":
-        character.setAncestry(payload);
-        break;
-
-      case "class":
-        character.setClass(payload);
-        break;
-
-      case "equipment":
-        character.setEquipment(payload);
-        break;
-
-      default:
-        break;
-    }
+    router.push("/form/attributes");
   }
 
   return (
-    <main>
-      <Attributes advance={(e: any) => advance("attributes", e)} />
-    </main>
+    <form onSubmit={handleSubmit}>
+      <label>
+        What's your name?
+        <input
+          className="text-black"
+          value={playerName}
+          onChange={(e) => setPlayerName(e.target.value)}
+        />
+      </label>
+      <label>
+        What's your character's name?
+        <input
+          className="text-black"
+          value={characterName}
+          onChange={(e) => setCharacterName(e.target.value)}
+        />
+      </label>
+
+      <button className="outline-button my-3" type="submit">
+        Submit
+      </button>
+    </form>
   );
 }
