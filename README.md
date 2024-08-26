@@ -29,6 +29,7 @@ in the meantime, you can check out [the project in action](https://dc20-beyond.v
 - [x] Adding some basic interactivity to the character sheet
 - [ ] Storing that interactivity to the db
 - [ ] Build a basic form scaffold for character creation
+  - [x] Player and character name
   - [x] Attribute Scores
     - [x] Standard Array
     - [ ] Point buy
@@ -52,14 +53,14 @@ in the meantime, you can check out [the project in action](https://dc20-beyond.v
   - [ ] Ancestry
     - [ ] choose between a full or half ancestry
     - [ ] if half
-      - [ ] - provide a list of each ancestry's traits
+      - [ ] \* provide a list of each ancestry's traits
       - [ ] limit the user's choice of ancestry traits to 5 ancestry points
     - [ ] register the player's choice of ancestry traits to their in-progress character
   - [ ] Class
     - [ ] the player must now choose a character class
-    - [ ] - provide the class features each class offers at level 1
-        - Also list out any bonus HP, the kind of class it is, and how many spells they can pick
-        - [ ] Also resolve any skills the class gives you
+    - [ ] \* provide the class features each class offers at level 1
+      - Also list out any bonus HP, the kind of class it is, and how many spells they can pick
+      - [ ] Also resolve any skills the class gives you
   - [ ] Calculate Everything else
     - [ ] Combat masteries
     - [ ] Health
