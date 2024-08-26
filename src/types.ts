@@ -84,6 +84,11 @@ export class Character {
   //   description: string;
   // }[];
 
+  setMetaData(payload: { playerName: string; characterName: string }) {
+    this.name = payload.characterName;
+    this.playerName = payload.playerName;
+  }
+
   setAttributes(payload: {
     bonuses: Attributes[];
     might: FormAttribute;
@@ -116,6 +121,8 @@ export class Character {
     if (payload.intelligence.save) {
       this.attributeSaveMasteries.push("intelligence");
     }
+
+    this.prime = 3;
   }
 
   setBackground(payload: any) {
