@@ -46,8 +46,8 @@ in the meantime, you can check out [the project in action](https://dc20-beyond.v
       - [ ] allowing an option to convert skill points into trade points?
       - [ ] using auto-populated search params from Next to "save" progress if the user goes back
     - [ ] Trades
-      - [ ] Somehow provide a list of trades
-      - [ ] allowing the user to select 3 trades
+      - [x] Somehow provide a list of trades
+      - [x] allowing the user to select 3 trades
       - [ ] allowing the user to convert a trade point to 2 language points
     - [ ] Languages
       - [ ] providing a list of languages
