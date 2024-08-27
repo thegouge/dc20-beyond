@@ -125,8 +125,27 @@ export class Character {
     this.prime = 3;
   }
 
-  setBackground(payload: any) {
-    console.log({ payload });
+  setTrades(trades: string[]) {
+    this.trades = trades.map((tradeName) => {
+      const attribute = ALL_TRADES.find(
+        (tradeObj) => (tradeObj.name = tradeName),
+      )?.attribute as Attributes;
+      return {
+        name: tradeName,
+        attribute,
+        level: 1,
+      };
+    });
+  }
+
+  setLanguages(langs: string[]) {
+    this.languages = langs.map((langName) => {
+      return {
+        name: langName,
+        attribute: "language",
+        level: 1,
+      };
+    });
   }
 
   setAncestry(payload: any) {
@@ -147,35 +166,17 @@ type FormAttribute = {
   save: boolean;
 };
 
-type SkillLevelList = {
-  prime: {
-    awareness: number;
-  };
-  might: {
-    athletics: number;
-  };
-  agility: {
-    acrobatics: number;
-    trickery: number;
-    stealth: number;
-  };
-  charisma: {
-    animal: number;
-    influence: number;
-    insight: number;
-  };
-  intelligence: {
-    investigation: number;
-    medicine: number;
-    survival: number;
-  };
-  knowledge: {
-    arcana: number;
-    history: number;
-    nature: number;
-    occultism: number;
-    religion: number;
-  };
+export type SkillLevelList = {
+  prime: SkillLevels;
+  might: SkillLevels;
+  agility: SkillLevels;
+  charisma: SkillLevels;
+  intelligence: SkillLevels;
+  knowledge: SkillLevels;
+};
+
+export type SkillLevels = {
+  [index: string]: number;
 };
 
 type OtherPro = {
@@ -301,3 +302,45 @@ export type SKILL_NAMES =
   | "nature"
   | "occultism"
   | "religion";
+
+export const ALL_TRADES: OtherPro[] = [
+  { name: "Alchemy", attribute: "intelligence", level: 0 },
+  { name: "Blacksmithing", attribute: "might", level: 0 },
+  { name: "Brewing", attribute: "intelligence", level: 0 },
+  { name: "Carpentry", attribute: "might", level: 0 },
+  { name: "Cartography", attribute: "intelligence", level: 0 },
+  { name: "Cooking", attribute: "agility", level: 0 },
+  { name: "Cryptography", attribute: "intelligence", level: 0 },
+  { name: "Disguise", attribute: "charisma", level: 0 },
+  { name: "Gaming", attribute: "charisma", level: 0 },
+  { name: "Glassblowing", attribute: "agility", level: 0 },
+  { name: "Herbalism", attribute: "intelligence", level: 0 },
+  { name: "Illustration", attribute: "agility", level: 0 },
+  { name: "Jeweler", attribute: "agility", level: 0 },
+  { name: "Leatherworking", attribute: "agility", level: 0 },
+  { name: "Lockpicking", attribute: "agility", level: 0 },
+  { name: "Masonry", attribute: "might", level: 0 },
+  { name: "Musician", attribute: "charisma", level: 0 },
+  { name: "Sculpting", attribute: "agility", level: 0 },
+  { name: "Theatre", attribute: "charisma", level: 0 },
+  { name: "Tinkering", attribute: "intelligence", level: 0 },
+  { name: "Weaving", attribute: "agility", level: 0 },
+  { name: "Vehicles", attribute: "agility", level: 0 },
+];
+
+export const ALL_LANGS: OtherPro[] = [
+  { name: "Common", attribute: "language", level: 0 },
+  { name: "Human", attribute: "language", level: 0 },
+  { name: "Dwarvish", attribute: "language", level: 0 },
+  { name: "Elvish", attribute: "language", level: 0 },
+  { name: "Gnomish", attribute: "language", level: 0 },
+  { name: "Halfling", attribute: "language", level: 0 },
+  { name: "Giant", attribute: "language", level: 0 },
+  { name: "Draconic", attribute: "language", level: 0 },
+  { name: "Orcish", attribute: "language", level: 0 },
+  { name: "Fey", attribute: "language", level: 0 },
+  { name: "Elemental", attribute: "language", level: 0 },
+  { name: "Celestial", attribute: "language", level: 0 },
+  { name: "Fiendish", attribute: "language", level: 0 },
+  { name: "Deep Speech", attribute: "language", level: 0 },
+];
