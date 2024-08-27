@@ -35,7 +35,7 @@ export default function langs() {
       );
     } else {
       character.setLanguages(selectedlangs);
-      router.push("/form/background/languages");
+      router.push("/form/ancestries");
     }
   }
 

@@ -16,8 +16,10 @@ export default function Trades() {
     const tradeIndex = selectedTrades.indexOf(name);
     if (tradeIndex < 0) {
       setSelectedTrades([...selectedTrades, name]);
+      setTradePoints(tradePoints - 1);
     } else {
       setSelectedTrades(selectedTrades.filter((trade) => name !== trade));
+      setTradePoints(tradePoints + 1);
     }
   }
 
