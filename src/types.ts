@@ -84,6 +84,28 @@ export class Character {
   //   description: string;
   // }[];
 
+  loadSavedCharacter(payload: CharacterValues) {
+    this.name = payload.name
+    this.playerName = payload.playerName
+    this.level = payload.level
+    this.ancestry = payload.ancestry
+    this.ancestryFeatures = payload.ancestryFeatures
+    this.prime = payload.prime
+    this.might = payload.might
+    this.agility = payload.agility
+    this.charisma = payload.charisma
+    this.intelligence = payload.intelligence
+    this.attributeSaveMasteries = payload.attributeSaveMasteries
+    this.skillMasteries = payload.skillMasteries
+    this.trades = payload.trades
+    this.languages = payload.languages
+    this.charClass = payload.charClass
+    this.charClassType = payload.charClassType
+    this.classAttributes = payload.classAttributes
+    this.armorBonus = payload.armorBonus
+    this.flavor = payload.flavor
+  }
+
   setMetaData(payload: { playerName: string; characterName: string }) {
     this.name = payload.characterName;
     this.playerName = payload.playerName;
@@ -160,6 +182,37 @@ export class Character {
     console.log({ payload });
   }
 }
+
+type CharacterValues = {
+  name: string;
+  playerName: string;
+  level: number;
+  ancestry: string;
+  ancestryFeatures: string[];
+  prime: number;
+  might: number;
+  agility: number;
+  charisma: number;
+  intelligence: number;
+  attributeSaveMasteries: string[];
+  skillMasteries: SkillLevelList;
+  trades: OtherPro[];
+  languages: OtherPro[];
+  charClass: string;
+  charClassType: ClassTypes;
+  classAttributes: {
+    attributeName: string;
+    attributeDesc: string;
+  }[];
+  armorBonus: number;
+  flavor: string;
+
+  // A list of things I'd want to save between sessions
+  // hp: PlayerCounter;
+  // mp: PlayerCounter;
+  // sp: PlayerCounter;
+  // ap: PlayerCounter;
+};
 
 type FormAttribute = {
   mod: number;
