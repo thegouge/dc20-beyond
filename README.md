@@ -28,19 +28,23 @@ in the meantime, you can check out [the project in action](https://dc20-beyond.v
 - [x] Build a mock character sheet on the front-end
 - [x] Adding some basic interactivity to the character sheet
 - [ ] Storing that interactivity to the db
+- [ ] Create (or import) a toast system to alert the user to stuff
 - [ ] Build a basic form scaffold for character creation
   - [x] Player and character name
+    - [ ] re-populate these fields when user navigates back
   - [x] Attribute Scores
     - [x] Standard Array
     - [ ] Point buy
     - [ ] Roll/manual
     - [x] Choose saves
+    - [ ] Get back the attribute scores if the user goes back to this page
   - [ ] Background
     - [ ] Skills
-      - [ ] providing a list of skills to choose, grouped by governing attribute
+      - [x] providing a list of skills to choose, grouped by governing attribute
         - Make sure to include knowlege skills
-      - [ ] pulling intelligence points from previous stage to limit choices
+      - [x] pulling intelligence points from previous stage to limit choices
       - [ ] allowing an option to convert skill points into trade points?
+      - [ ] using auto-populated search params from Next to "save" progress if the user goes back
     - [ ] Trades
       - [ ] Somehow provide a list of trades
       - [ ] allowing the user to select 3 trades
