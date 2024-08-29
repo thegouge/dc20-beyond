@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { CharacterContext } from "~/helpers/characterContext";
+import { saveCharacter } from "~/helpers/localStorage";
 import { ALL_LANGS } from "~/types";
 
 export default function langs() {
@@ -35,6 +36,7 @@ export default function langs() {
       );
     } else {
       character.setLanguages(selectedlangs);
+      saveCharacter(character);
       router.push("/form/ancestries");
     }
   }

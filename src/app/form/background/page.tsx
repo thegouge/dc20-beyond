@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useContext, useState } from "react";
 import { CharacterContext } from "~/helpers/characterContext";
+import { saveCharacter } from "~/helpers/localStorage";
 import {
   Attributes,
   SkillLevelList,
@@ -67,6 +68,7 @@ export default function BackgroundPage() {
         "Spend all your skill points! I don't have a way to transfer skill points to trades yet!",
       );
     } else {
+      saveCharacter(character);
       router.push("/form/background/trades");
     }
   }

@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { CharacterContext } from "~/helpers/characterContext";
+import { saveCharacter } from "~/helpers/localStorage";
 import { Attributes } from "~/types";
 
 const standardArray = [3, 1, 0, -2];
@@ -84,8 +85,13 @@ export default function FormPage() {
         ...attributes,
         bonuses: [bonus1, bonus2],
       });
+    } else {
+      // TODO: add a toast here
+      console.log("Hey! you've got to select your bonus points!")
+      return
     }
 
+    saveCharacter(character)
     router.push("/form/background")
   }
 

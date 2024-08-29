@@ -3,6 +3,7 @@
 import { Character } from "~/types";
 import { CharacterContext } from "~/helpers/characterContext";
 import { useEffect } from "react";
+import { saveCharacter } from "~/helpers/localStorage";
 
 export default function FormLayout({ children }: any) {
   const character = new Character();
@@ -11,11 +12,15 @@ export default function FormLayout({ children }: any) {
     const savedCharacter = window.localStorage.getItem("saved-character");
 
     if (!savedCharacter) {
-      window.localStorage.setItem("saved-character", JSON.stringify(character));
+      console.log("no character found");
+      saveCharacter(character);
     } else {
+      console.log("loading character...");
       character.loadSavedCharacter(JSON.parse(savedCharacter));
     }
   });
+
+  console.log({ character });
 
   return (
     <CharacterContext.Provider value={character}>

@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { CharacterContext } from "~/helpers/characterContext";
+import { saveCharacter } from "~/helpers/localStorage";
 
 export default function FormPage() {
   const character = useContext(CharacterContext);
@@ -18,6 +19,8 @@ export default function FormPage() {
       playerName,
       characterName,
     });
+
+    saveCharacter(character);
 
     router.push("/form/attributes");
   }

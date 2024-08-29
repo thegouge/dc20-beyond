@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { CharacterContext } from "~/helpers/characterContext";
+import { saveCharacter } from "~/helpers/localStorage";
 import { ALL_TRADES } from "~/types";
 
 export default function Trades() {
@@ -35,6 +36,7 @@ export default function Trades() {
       );
     } else {
       character.setTrades(selectedTrades);
+      saveCharacter(character);
       router.push("/form/background/languages");
     }
   }
