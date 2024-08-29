@@ -50,10 +50,10 @@ in the meantime, you can check out [the project in action](https://dc20-beyond.v
       - [x] allowing the user to select 3 trades
       - [ ] allowing the user to convert a trade point to 2 language points
     - [ ] Languages
-      - [ ] providing a list of languages
-      - [ ] allowing a user to select 2 language points
+      - [x] providing a list of languages
+      - [x] allowing a user to select 2 language points
       - [ ] allowing a user to either be stumbling or fluent in each language
-    - [ ] registering choices to the in-progress character
+    - [x] registering choices to the in-progress character
   - [ ] Ancestry
     - [ ] choose between a full or half ancestry
     - [ ] if half
