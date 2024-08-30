@@ -397,3 +397,18 @@ export const ALL_LANGS: OtherPro[] = [
   { name: "Fiendish", attribute: "language", level: 0 },
   { name: "Deep Speech", attribute: "language", level: 0 },
 ];
+
+export const ALL_ANCESTRIES: string[] = [
+  "Human",
+  "Elf",
+  "Dwarf",
+  "Halfling",
+  "Gnome",
+  "Orc",
+  "Dragonborn",
+  "Giantborn",
+  "Angelborn",
+  "Fiendborn",
+  "Beastborn"
+]
+
