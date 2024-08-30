@@ -1,13 +1,10 @@
 // import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
-import { db } from "~/server/db";
-
-export const dynamic = "force-dynamic";
+import { getCharacters } from "~/server/queries";
 
 async function CharacterFetch() {
-	const characters = await db.query.characters.findMany({
-		orderBy: (model, { desc }) => desc(model.createdAt),
-	});
+	const characters = await getCharacters();
+
 	return (
 		<div className="flex flex-wrap justify-between">
 			{characters.map((character) => (
