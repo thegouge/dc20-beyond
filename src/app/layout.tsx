@@ -16,7 +16,7 @@ type PropTypes = {
 export default function RootLayout({ children }: PropTypes) {
 	return (
 		<ClerkProvider>
-			<html lang="en" className={`${GeistSans.variable}`}>
+			<html lang="en" className={`${GeistSans.variable} dark`}>
 				<body>
 					<TopNav />
 					{children}
