@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useContext, useState } from "react";
+import { toast } from "sonner";
 import { CharacterContext } from "~/helpers/characterContext";
 // import { saveCharacter } from "~/helpers/localStorage";
 import {
@@ -61,12 +62,14 @@ export default function BackgroundPage() {
     e.preventDefault();
 
     if (skillPoints < 0) {
-      console.log("Hey! you can't spend that many skill points!");
+      toast.error("Hey! you can't spend that many skill points!");
+      return;
     } else if (skillPoints > 0) {
       // TODO: transfer any unused skill points into trade points
-      console.log(
+      toast.error(
         "Spend all your skill points! I don't have a way to transfer skill points to trades yet!",
       );
+      return;
     } else {
       // saveCharacter(character);
       router.push("/form/background/trades");

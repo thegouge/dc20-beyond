@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
+import { toast } from "sonner";
 import { CharacterContext } from "~/helpers/characterContext";
 // import { saveCharacter } from "~/helpers/localStorage";
 import { ALL_TRADES } from "~/types";
@@ -28,12 +29,14 @@ export default function Trades() {
     e.preventDefault();
 
     if (tradePoints < 0) {
-      console.log("Hey! you can't spend that many trade points!");
+      toast.error("Hey! you can't spend that many trade points!");
+      return;
     } else if (tradePoints > 0) {
       // TODO: transfer any unused trade points into language points
-      console.log(
+      toast.error(
         "Spend all your trade points! I don't have a way to transfer trade points to languages yet!",
       );
+      return;
     } else {
       character.setTrades(selectedTrades);
       // saveCharacter(character);

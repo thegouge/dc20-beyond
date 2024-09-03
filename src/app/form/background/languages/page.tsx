@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
+import { toast } from "sonner";
 import { CharacterContext } from "~/helpers/characterContext";
 // import { saveCharacter } from "~/helpers/localStorage";
 import { ALL_LANGS } from "~/types";
@@ -28,12 +29,10 @@ export default function langs() {
     e.preventDefault();
 
     if (langPoints < 0) {
-      console.log("Hey! you can't spend that many lang points!");
+      toast.error("Hey! you can't spend that many lang points!");
+      return;
     } else if (langPoints > 0) {
-      // TODO: transfer any unused lang points into language points
-      console.log(
-        "Spend all your lang points! I don't have a way to transfer lang points to languages yet!",
-      );
+      toast.error("Spend all your lang points!");
     } else {
       character.setLanguages(selectedlangs);
       // saveCharacter(character);
