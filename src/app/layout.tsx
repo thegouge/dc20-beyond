@@ -2,6 +2,7 @@ import "~/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 import { ClerkProvider } from "@clerk/nextjs";
 import TopNav from "./_components/TopNav";
+import { Toaster } from "sonner";
 
 export const metadata = {
 	title: "DC20-Beyond",
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: PropTypes) {
 				<body>
 					<TopNav />
 					{children}
+					<Toaster />
 				</body>
 			</html>
 		</ClerkProvider>

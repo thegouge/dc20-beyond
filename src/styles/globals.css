@@ -67,3 +67,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.outline-button {
+  @apply ml-2 rounded border border-white p-2;
+}
