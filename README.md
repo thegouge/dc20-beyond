@@ -24,11 +24,11 @@ in the meantime, you can check out [the project in action](https://dc20-beyond.v
 - [x] Building the actual DB schema
 - [x] Adding Auth (with Clerk)
 - [x] Linking the DB to the character sheet component
-- [ ] "taint" (server-only)
+- [x] "taint" (server-only)
 - [x] Build a mock character sheet on the front-end
 - [x] Adding some basic interactivity to the character sheet
 - [ ] Storing that interactivity to the db
-- [ ] Create (or import) a toast system to alert the user to stuff
+- [x] Create (or import) a toast system to alert the user to stuff
 - [ ] Build a basic form scaffold for character creation
   - [x] Player and character name
     - [ ] re-populate these fields when user navigates back
@@ -55,7 +55,7 @@ in the meantime, you can check out [the project in action](https://dc20-beyond.v
       - [ ] allowing a user to either be stumbling or fluent in each language
     - [x] registering choices to the in-progress character
   - [ ] Ancestry
-    - [ ] choose between a full or half ancestry
+    - [x] choose between a full or half ancestry
     - [ ] if half
       - [ ] \* provide a list of each ancestry's traits
       - [ ] limit the user's choice of ancestry traits to 5 ancestry points
@@ -79,11 +79,13 @@ in the meantime, you can check out [the project in action](https://dc20-beyond.v
     - [ ] Jump Distance
     - [ ] Rest Points
     - [ ] Grit Points
-- [ ] implement routing for this form / the character sheet
+- [ ] style the form
+- [ ] style the character sheet
+- [x] implement routing for this form / the character sheet
 - [ ] Start populating this form with choices from the core rulebook
   - this will likely require the actual rulebook
 - [ ] Error management?
-- [ ] Testing?
+- [ ] Add Testing
 - [ ] Add Character sheet exports
 - [ ] \*Add character sheet imports
 - [ ] Analytics (posthog)
