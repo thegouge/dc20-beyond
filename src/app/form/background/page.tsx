@@ -35,7 +35,7 @@ export default function BackgroundPage() {
   function toggleSkill(name: SKILL_NAMES, attribute: Attributes | "knowledge") {
     const curr =
       character.skillMasteries[attribute as keyof SkillLevelList][
-      name as keyof SkillLevels
+        name as keyof SkillLevels
       ];
     if (curr === undefined || curr > 0) {
       character.skillMasteries[attribute][name] = 0;

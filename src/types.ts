@@ -164,7 +164,7 @@ export class Character {
     this.languages = langs.filter((langObj) => langObj.level > 0);
   }
 
-  setAncestry(payload: any) {
+  setSingleAncestry(payload: any) {
     console.log({ payload });
   }
 
