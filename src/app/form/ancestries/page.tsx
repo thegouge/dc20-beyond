@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { CharacterContext } from "~/helpers/characterContext";
-import { saveCharacter } from "~/helpers/localStorage";
+// import { saveCharacter } from "~/helpers/localStorage";
 import { ALL_ANCESTRIES } from "~/types";
 
 export default function AncestriesPage() {
@@ -17,7 +17,7 @@ export default function AncestriesPage() {
     e.preventDefault();
 
     character.setAncestry({});
-    saveCharacter(character);
+    // saveCharacter(character);
     // router.push("/form/class");
   }
   return (

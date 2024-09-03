@@ -2,8 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
+import { toast } from "sonner";
 import { CharacterContext } from "~/helpers/characterContext";
-import { saveCharacter } from "~/helpers/localStorage";
+// import { saveCharacter } from "~/helpers/localStorage";
 
 export default function FormPage() {
   const character = useContext(CharacterContext);
@@ -15,12 +16,24 @@ export default function FormPage() {
   function handleSubmit(e: any) {
     e.preventDefault();
 
+    if (playerName === "") {
+      toast.error("Wait, who are you?", {
+        cancel: { label: "X", onClick: () => { } },
+      });
+      return;
+    }
+    if (characterName === "") {
+      toast.error("Wait, who are you making?", {
+        cancel: { label: "X", onClick: () => { } },
+      });
+      return;
+    }
     character.setMetaData({
       playerName,
       characterName,
     });
 
-    saveCharacter(character);
+    // saveCharacter(character);
 
     router.push("/form/attributes");
   }

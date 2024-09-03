@@ -2,14 +2,15 @@
 
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
+import { toast } from "sonner";
 import { CharacterContext } from "~/helpers/characterContext";
-import { saveCharacter } from "~/helpers/localStorage";
+// import { saveCharacter } from "~/helpers/localStorage";
 import { Attributes } from "~/types";
 
 const standardArray = [3, 1, 0, -2];
 
 export default function FormPage() {
-  const router = useRouter()
+  const router = useRouter();
   const character = useContext(CharacterContext);
 
   const [selectedSA, setSelectedSA] = useState([false, false, false, false]);
@@ -79,20 +80,32 @@ export default function FormPage() {
 
   function handleSubmit(e: any) {
     e.preventDefault();
+    const attributesArray = Object.keys(attributes) as Attributes[]
+    const hasAnyUnselectedAttr = attributesArray.some((attrName) => attributes[attrName].mod === -1)
+    const numSelectedSaves = attributesArray.filter((attrName) => attributes[attrName].save).length
 
-    if (bonus1 !== "--" && bonus2 !== "--") {
-      character.setAttributes({
-        ...attributes,
-        bonuses: [bonus1, bonus2],
-      });
-    } else {
-      // TODO: add a toast here
-      console.log("Hey! you've got to select your bonus points!")
+    if (hasAnyUnselectedAttr) {
+      toast.error("Hey! You need to select values for all 4 attributes!")
+      return;
+    }
+
+    if (numSelectedSaves < 2) {
+      toast.error("Hey! you need to select two attributes to have proficiency in!")
       return
     }
 
-    saveCharacter(character)
-    router.push("/form/background")
+    if (bonus1 === "--" || bonus2 === "--") {
+      toast.error("Hey! you've got to select your bonus points!");
+      return;
+    }
+
+    character.setAttributes({
+      ...attributes,
+      bonuses: [bonus1 as Attributes, bonus2 as Attributes],
+    });
+
+    // saveCharacter(character);
+    router.push("/form/background");
   }
 
   return (
