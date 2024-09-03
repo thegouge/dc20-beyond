@@ -160,14 +160,8 @@ export class Character {
     });
   }
 
-  setLanguages(langs: string[]) {
-    this.languages = langs.map((langName) => {
-      return {
-        name: langName,
-        attribute: "language",
-        level: 1,
-      };
-    });
+  setLanguages(langs: OtherPro[]) {
+    this.languages = langs.filter((langObj) => langObj.level > 0);
   }
 
   setAncestry(payload: any) {
@@ -232,7 +226,7 @@ export type SkillLevels = {
   [index: string]: number;
 };
 
-type OtherPro = {
+export type OtherPro = {
   name: string;
   attribute: Attributes | "language";
   level: number;
@@ -382,33 +376,33 @@ export const ALL_TRADES: OtherPro[] = [
 ];
 
 export const ALL_LANGS: OtherPro[] = [
-  { name: "Common", attribute: "language", level: 0 },
-  { name: "Human", attribute: "language", level: 0 },
-  { name: "Dwarvish", attribute: "language", level: 0 },
-  { name: "Elvish", attribute: "language", level: 0 },
-  { name: "Gnomish", attribute: "language", level: 0 },
-  { name: "Halfling", attribute: "language", level: 0 },
-  { name: "Giant", attribute: "language", level: 0 },
-  { name: "Draconic", attribute: "language", level: 0 },
-  { name: "Orcish", attribute: "language", level: 0 },
-  { name: "Fey", attribute: "language", level: 0 },
-  { name: "Elemental", attribute: "language", level: 0 },
-  { name: "Celestial", attribute: "language", level: 0 },
-  { name: "Fiendish", attribute: "language", level: 0 },
-  { name: "Deep Speech", attribute: "language", level: 0 },
+  { name: "common", attribute: "language", level: 2 },
+  { name: "human", attribute: "language", level: 0 },
+  { name: "dwarvish", attribute: "language", level: 0 },
+  { name: "elvish", attribute: "language", level: 0 },
+  { name: "gnomish", attribute: "language", level: 0 },
+  { name: "halfling", attribute: "language", level: 0 },
+  { name: "giant", attribute: "language", level: 0 },
+  { name: "draconic", attribute: "language", level: 0 },
+  { name: "orcish", attribute: "language", level: 0 },
+  { name: "fey", attribute: "language", level: 0 },
+  { name: "elemental", attribute: "language", level: 0 },
+  { name: "celestial", attribute: "language", level: 0 },
+  { name: "fiendish", attribute: "language", level: 0 },
+  { name: "deep speech", attribute: "language", level: 0 },
 ];
 
 export const ALL_ANCESTRIES: string[] = [
-  "Human",
-  "Elf",
-  "Dwarf",
-  "Halfling",
-  "Gnome",
-  "Orc",
-  "Dragonborn",
-  "Giantborn",
-  "Angelborn",
-  "Fiendborn",
-  "Beastborn"
+  "human",
+  "elf",
+  "dwarf",
+  "halfling",
+  "gnome",
+  "orc",
+  "dragonborn",
+  "giantborn",
+  "angelborn",
+  "fiendborn",
+  "beastborn"
 ]
 

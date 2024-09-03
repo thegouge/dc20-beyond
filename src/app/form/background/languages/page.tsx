@@ -5,24 +5,83 @@ import { useContext, useState } from "react";
 import { toast } from "sonner";
 import { CharacterContext } from "~/helpers/characterContext";
 // import { saveCharacter } from "~/helpers/localStorage";
-import { ALL_LANGS } from "~/types";
+import { ALL_LANGS, OtherPro } from "~/types";
 
 export default function langs() {
   const router = useRouter();
   const character = useContext(CharacterContext);
 
   const [langPoints, setlangPoints] = useState(2);
-  const [selectedlangs, setSelectedlangs] = useState<string[]>([]);
+  const [selectedLangs, setSelectedlangs] = useState<OtherPro[]>(ALL_LANGS);
 
-  function togglelang(name: string) {
-    const langIndex = selectedlangs.indexOf(name);
-    if (langIndex < 0) {
-      setSelectedlangs([...selectedlangs, name]);
-      setlangPoints(langPoints - 1);
-    } else {
-      setSelectedlangs(selectedlangs.filter((lang) => name !== lang));
-      setlangPoints(langPoints + 1);
+  function toggleLang(langIndex: number) {
+    const langObj = selectedLangs[langIndex];
+
+    if (langObj === undefined) {
+      console.log(
+        "something went wrong toggling the knowlege for index:",
+        langIndex,
+      );
+      return;
     }
+    let newLevel: number;
+
+    if (langObj?.level === 0) {
+      setlangPoints(langPoints - 1);
+      newLevel = 1;
+    } else {
+      if (langObj.level > 1) {
+        setlangPoints(langPoints + 2);
+      } else {
+        setlangPoints(langPoints + 1);
+      }
+
+      newLevel = 0;
+    }
+
+    setSelectedlangs(
+      selectedLangs.map((lang, i) => {
+        if (i === langIndex) {
+          return { ...langObj, level: newLevel };
+        }
+        return lang;
+      }),
+    );
+  }
+
+  function toggleFluency(langIndex: number) {
+    const langObj = selectedLangs[langIndex];
+
+    if (langObj === undefined) {
+      console.log(
+        "something went wrong toggling the fluency for index:",
+        langIndex,
+      );
+      return;
+    }
+
+    let newLevel: number;
+
+    if (langObj.level < 2) {
+      if (langObj.level === 1) {
+        setlangPoints(langPoints - 1);
+      } else {
+        setlangPoints(langPoints - 2);
+      }
+      newLevel = 2;
+    } else {
+      setlangPoints(langPoints + 1);
+      newLevel = 1;
+    }
+
+    setSelectedlangs(
+      selectedLangs.map((lang, i) => {
+        if (i === langIndex) {
+          return { ...langObj, level: newLevel };
+        }
+        return lang;
+      }),
+    );
   }
 
   function handleSubmit(e: any) {
@@ -34,7 +93,7 @@ export default function langs() {
     } else if (langPoints > 0) {
       toast.error("Spend all your lang points!");
     } else {
-      character.setLanguages(selectedlangs);
+      character.setLanguages(selectedLangs);
       // saveCharacter(character);
       router.push("/form/ancestries");
     }
@@ -44,14 +103,21 @@ export default function langs() {
     <div>
       langs! Remaining lang Points: {langPoints}
       <form onSubmit={handleSubmit}>
-        {ALL_LANGS.map((langObj) => {
+        {selectedLangs.map((langObj, i) => {
           return (
-            <label>
+            <label key={langObj.name} className="capitalize">
               {langObj.name}:
               <input
                 type="checkbox"
                 name={langObj.name}
-                onChange={() => togglelang(langObj.name)}
+                checked={langObj.level > 0}
+                onChange={() => toggleLang(i)}
+              />
+              <input
+                type="checkbox"
+                name={`${langObj.name}Fluency`}
+                checked={langObj.level > 1}
+                onChange={() => toggleFluency(i)}
               />
             </label>
           );
