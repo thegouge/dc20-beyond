@@ -46,7 +46,7 @@ export class Character {
     this.trades = [];
     this.languages = [];
     this.charClass = "";
-    this.charClassType = "Martial";
+    this.charClassType = "martial";
     this.classAttributes = [];
     this.armorBonus = 0;
     this.flavor = "";
@@ -87,25 +87,25 @@ export class Character {
   // }[];
 
   loadSavedCharacter(payload: CharacterValues) {
-    this.name = payload.name
-    this.playerName = payload.playerName
-    this.level = payload.level
-    this.ancestry = payload.ancestry
-    this.ancestryFeatures = payload.ancestryFeatures
-    this.prime = payload.prime
-    this.might = payload.might
-    this.agility = payload.agility
-    this.charisma = payload.charisma
-    this.intelligence = payload.intelligence
-    this.attributeSaveMasteries = payload.attributeSaveMasteries
-    this.skillMasteries = payload.skillMasteries
-    this.trades = payload.trades
-    this.languages = payload.languages
-    this.charClass = payload.charClass
-    this.charClassType = payload.charClassType
-    this.classAttributes = payload.classAttributes
-    this.armorBonus = payload.armorBonus
-    this.flavor = payload.flavor
+    this.name = payload.name;
+    this.playerName = payload.playerName;
+    this.level = payload.level;
+    this.ancestry = payload.ancestry;
+    this.ancestryFeatures = payload.ancestryFeatures;
+    this.prime = payload.prime;
+    this.might = payload.might;
+    this.agility = payload.agility;
+    this.charisma = payload.charisma;
+    this.intelligence = payload.intelligence;
+    this.attributeSaveMasteries = payload.attributeSaveMasteries;
+    this.skillMasteries = payload.skillMasteries;
+    this.trades = payload.trades;
+    this.languages = payload.languages;
+    this.charClass = payload.charClass;
+    this.charClassType = payload.charClassType;
+    this.classAttributes = payload.classAttributes;
+    this.armorBonus = payload.armorBonus;
+    this.flavor = payload.flavor;
   }
 
   setMetaData(payload: { playerName: string; characterName: string }) {
@@ -268,10 +268,69 @@ export type Attributes =
   | "intelligence"
   | "charisma"
   | "prime";
-export type ClassTypes = "Martial" | "Spellcaster" | "Hybrid";
+export type ClassTypes = "martial" | "spellcaster" | "hybrid";
 
 export type Skill = {
   name: string;
   attribute: Attributes;
 };
 
+export type AncestryTrait = {
+  name: string;
+  description: string;
+  cost: number;
+  requiresCalc: boolean;
+};
+
+export type Ancestry =
+  | "human"
+  | "elf"
+  | "dwarf"
+  | "halfling"
+  | "gnome"
+  | "orc"
+  | "dragonborn"
+  | "giantborn"
+  | "angelborn"
+  | "fiendborn"
+  | "beastborn";
+
+export type PlayerClasses =
+  | "barbarian"
+  | "bard"
+  | "cleric"
+  | "commander"
+  | "druid"
+  | "fighter"
+  | "monk"
+  | "ranger"
+  | "rogue"
+  | "sorcerer"
+  | "spellblade"
+  | "warlock"
+  | "wizard";
+
+type Equipment = string;
+type Maneuver = string;
+type Spell = {
+  level: number;
+  name: string;
+  description: string;
+};
+type ClassFeature = {
+  name: string;
+  description: string;
+};
+
+export type ClassAttributes = {
+  type: ClassTypes;
+  description: string;
+  sourceOfPower: string;
+  equipment: Equipment[];
+  combatMasteries: string[];
+  stamina: number;
+  mana: number;
+  maneuvers: Maneuver[];
+  spells: Spell[];
+  features: ClassFeature[];
+};

@@ -1,4 +1,10 @@
-import { OtherPro } from "./types";
+import {
+  Ancestry,
+  AncestryTrait,
+  ClassAttributes,
+  OtherPro,
+  PlayerClasses,
+} from "./types";
 
 export const DEFAULT_CHAR_DATA = {
   playerName: "you",
@@ -119,7 +125,7 @@ export const ALL_LANGS: OtherPro[] = [
   { name: "deep speech", attribute: "language", level: 0 },
 ];
 
-export const ANCESTRY_TRAITS = {
+export const ANCESTRY_TRAITS: { [name in Ancestry]: AncestryTrait[] } = {
   human: [
     {
       name: "Attribute Increase",
@@ -512,7 +518,7 @@ const ELEMENTAL_BREATH_WEAPON =
 const MYSTIC_BREATH_WEAPON =
   "Make a Spell Check against every target's MD within the area. Hit: The target takes 1 Draconic damage. Before you make your Spell Check, you can spend 1 SP to increase the damage by 1, or 1 MP to increase it by 2";
 
-export const CLASSES = {
+export const CLASSES: { [key in PlayerClasses]: ClassAttributes } = {
   barbarian: {
     type: "martial",
     description:
@@ -524,10 +530,12 @@ export const CLASSES = {
       "1 Ranged Weapon with 20 Ammo or 3 weapons with the toss or thrown property",
       "1 set of novice light armor or novice heavy armor",
     ],
-    proficiencies: {
-      combatMasteries: ["Weapons", "all Armors", "all Shields"],
-      weaponStyles: true,
-    },
+    combatMasteries: [
+      "Weapons",
+      "all Armors",
+      "all Shields",
+      "Weapon Style Passives",
+    ],
     stamina: 1,
     mana: 0,
     maneuvers: ["All Attack Maneuvers", "", "", "", ""],
@@ -557,16 +565,81 @@ your rage ends early if you fall unconscious, die, or you choose to end it for 0
     ],
   },
   bard: {
-    type: "",
-    description: ``,
-    sourceOfPower: ``,
-    equipment: [],
-    proficiencies: {},
+    type: "spellcaster",
+    description: `Bards utilize artistic expression through various forms to connect with the emotions and heart of magic. This includes a wide range of mediums such as, musical instruments, singing, dancing, drawing, painting, sculpting, poetry, storytelling, inspirational speech, and more. They are great at bringing the best out in those around them through both helping and performing, showcasing high proficiency across multiple disciplines. Bards are remarkably flexible and adaptable spellcasters, capable of tapping into a wide array of magical abilities with the appropriate artistic expression.
+
+Bard Flavor: Bards compile a repertoire of artistic expressions that they manifest as Spells. Musician Bards utilize specific songs or instruments to cast Spells, while dancer Bards perform particular dance moves that represent different Spells. Storyteller Bards initiate combat by narrating tales of wonder and adventure, seamlessly weaving Spells into key points of the story. Painter Bards fluidly and freely paint images, each triggering a specific Spell.`,
+    sourceOfPower: `Bards derive their power from harnessing their emotions and force of will, as well as those of others around them. The feeling you get when listening to a stirring song, hearing masterfully read poetry, or witnessing a captivating performance that gives you chills, elevates your heart rate, and provokes you to dance, that passion is what fuels their potential. A Bard's emotion, determination, and will power flows through their unique artistic expression, touching the hearts and minds of those around them and bringing their magic to life.`,
+    equipment: [
+      "2 Light Weapons",
+      "1 Musical Instrument, Theater Kit or Art Kit",
+      "1 set of Novice Light Armor",
+    ],
+    combatMasteries: [
+      "Light Weapons",
+      "Light Armor",
+      "Light Shields",
+      "Spellcasting",
+    ],
     stamina: 0,
-    mana: 0,
+    mana: 3,
     maneuvers: [],
-    spells: [],
-    features: [{ name: "", description: "" }],
+    spells: [
+      {
+        level: 0,
+        name: "",
+        description: "",
+      },
+      {
+        level: 0,
+        name: "",
+        description: "",
+      },
+      {
+        level: 1,
+        name: "",
+        description: "",
+      },
+      {
+        level: 1,
+        name: "",
+        description: "",
+      },
+      {
+        level: 1,
+        name: "",
+        description: "",
+      },
+    ],
+    features: [
+      {
+        name: "Bardic Performance",
+        description: `You can spend 1 AP and 1 MP to start a performance that grants you a 10 Space Aura for 1 minute. Choose 1 of the performances below. While creatures of your choice are within your Aura (and can see or hear you) they benefit from your performance. A creature can only benefit from one instance of each performance at a time.
+• Battle Ballad: The chosen creatures deal +1 damage against 1 target of their choice on an Attack they make once on each of their turns.
+• Fast Tempo: The chosen creatures gain +1 Speed.
+• Inspiring: The chosen creatures gain 1 Temp HP at the start of each of their turns.
+• Emotional: Choose 1 of the following Conditions: Charmed, Frightened (includes Rattled & Intimidated), or Taunted. The chosen creatures have ADV on Saves to resist and end the chosen Condition. If a target is affected by the chosen Condition at the start of its turn, it can immediately attempt to end the Condition on itself by repeating its Save.
+Changing Performances: Once on each of your turns, you can spend 1 AP to change your performance to a different one. 
+Ending Early: The performance ends early if you become Incapacitated, you die, or choose to end it for free.`,
+      },
+      {
+        name: "Font of Inspiration",
+        description: `You are an ever present source of aid for your allies. You gain the following benefits:
+- Ranged Help Attack: The range of your Help Action when aiding an Attack increases to 10 Spaces.
+- Help Reaction: When a creature that you can see makes a Check, you can take the Help Action as a Reaction to aid them with their Check, provided you’re within range to do so`,
+      },
+      {
+        name: "Remarkable Repetoire",
+        description: `You learn any 2 Spells of your choice from any Spell List,
+provided 1 of them is a Cantrip. You learn to express your art in a unique manner, granting you the ability to alter how you cast Spells. Choose the manner of your expression: Visual or Auditory.
+• Visual: Through acrobatics, dancing, juggling, painting, drawing, or miming, you can ignore the Verbal Components of a Spell you cast, but you must provide a Somatic Component instead.
+• Auditory: Through singing, playing music, poetry, comedy, or storytelling, you can ignore the Somatic Components of a Spell you cast, but you must provide a Verbal Component instead.`,
+      },
+      {
+        name: "Crowd Pleaser",
+        description: `When you spend at least 5 minutes performing an Artistry Trade for one or more people who are actively watching or listening to your performance, you can make an Artistry Trade Check Contested by the targets’ Charisma Save. Success: You gain ADV on Charisma Checks against thetarget for 1 hour or until you become hostile. Creatures have ADV on the Save if they’re considered hostile towards you.`,
+      },
+    ],
   },
   cleric: {
     type: "",
