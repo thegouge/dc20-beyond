@@ -1,26 +1,41 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import AncestryTraitPicker from "~/components/AncestryTraitPicker";
+import { ANCESTRY_TRAITS } from "~/constants";
+import { Ancestry } from "~/types";
 
 export default function HalfBreedForm() {
+  const router = useRouter();
   const queryParams = useSearchParams();
-  const ancestries = queryParams.getAll("ancestry");
+  const [firstAncestry, secondAncestry] = queryParams.getAll(
+    "ancestry",
+  ) as Ancestry[];
+
+  if (firstAncestry === undefined || secondAncestry === undefined) {
+    router.back();
+    return;
+  }
 
   const [ancestryPoints, setAncestryPoints] = useState(5);
+  const firstAncestryTraits = ANCESTRY_TRAITS[firstAncestry];
+  const secondAncestryTraits = ANCESTRY_TRAITS[secondAncestry];
 
   return (
-    <form>
+    <form className="justify-even flex">
       <div>
-        you're trying to be a half {ancestries[0]} half {ancestries[1]}
+        <h2>Traits for {firstAncestry}</h2>
+        {firstAncestryTraits.map((trait) => (
+          <AncestryTraitPicker trait={trait} />
+        ))}
       </div>
       <div>
-        But, I don't have a system for doing that just yet, so please{" "}
-        <Link href="/form/ancestries" className="outline-button">
-          Go Back
-        </Link>
-        and select just one ancestry for now
+        <h2>Traits for {secondAncestry}</h2>
+        {secondAncestryTraits.map((trait) => (
+          <AncestryTraitPicker trait={trait} />
+        ))}
       </div>
     </form>
   );
