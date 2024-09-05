@@ -3,9 +3,10 @@
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { toast } from "sonner";
+import { ALL_LANGS } from "~/constants";
 import { CharacterContext } from "~/helpers/characterContext";
 // import { saveCharacter } from "~/helpers/localStorage";
-import { ALL_LANGS, OtherPro } from "~/types";
+import { OtherPro } from "~/types";
 
 export default function langs() {
   const router = useRouter();

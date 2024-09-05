@@ -3,14 +3,13 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useContext, useState } from "react";
 import { toast } from "sonner";
+import { SKILL_MASTERY_LEVELS, SKILL_NAMES } from "~/constants";
 import { CharacterContext } from "~/helpers/characterContext";
 // import { saveCharacter } from "~/helpers/localStorage";
 import {
   Attributes,
   SkillLevelList,
-  SKILL_NAMES,
   SkillLevels,
-  SKILL_MASTERY_LEVELS,
 } from "~/types";
 
 export default function BackgroundPage() {
