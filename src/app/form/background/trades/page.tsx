@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import { toast } from "sonner";
 import { CharacterContext } from "~/helpers/characterContext";
 // import { saveCharacter } from "~/helpers/localStorage";
-import { ALL_TRADES } from "~/types";
+import { ALL_TRADES } from "~/constants";
 
 export default function Trades() {
   const router = useRouter();

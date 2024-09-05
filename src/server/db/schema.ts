@@ -11,7 +11,8 @@ import {
   integer,
   json,
 } from "drizzle-orm/pg-core";
-import { CharDBData, DEFAULT_CHAR_DATA } from "~/types";
+import { DEFAULT_CHAR_DATA } from "~/constants";
+import { CharDBData } from "~/types";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same

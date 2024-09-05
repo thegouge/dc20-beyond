@@ -5,7 +5,9 @@ import { useContext, useState } from "react";
 import { toast } from "sonner";
 import { CharacterContext } from "~/helpers/characterContext";
 // import { saveCharacter } from "~/helpers/localStorage";
-import { ALL_ANCESTRIES } from "~/types";
+import { ANCESTRY_TRAITS } from "~/constants";
+
+const ALL_ANCESTRIES = Object.keys(ANCESTRY_TRAITS);
 
 export default function AncestriesPage() {
   const character = useContext(CharacterContext);
