@@ -1,0 +1,10 @@
+.trait-selector {
+  @apply ml-2 cursor-pointer rounded border border-white p-2;
+}
+
+.selected {
+  @apply bg-red-900;
+}
+
+.unselected {
+}

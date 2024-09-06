@@ -270,17 +270,22 @@ export type Attributes =
   | "prime";
 export type ClassTypes = "martial" | "spellcaster" | "hybrid";
 
+interface Feature {
+  name: string;
+  description: string;
+}
+
+interface ClassFeature extends Feature { }
+
 export type Skill = {
   name: string;
   attribute: Attributes;
 };
 
-export type AncestryTrait = {
-  name: string;
-  description: string;
+export interface AncestryTrait extends Feature {
   cost: number;
   requiresCalc: boolean;
-};
+}
 
 export type Ancestry =
   | "human"
@@ -311,18 +316,14 @@ export type PlayerClasses =
   | "wizard";
 
 type Equipment = string;
-type Maneuver = string;
-type Spell = {
+interface Maneuver extends Feature { }
+
+interface Spell extends Feature {
   level: number;
-  name: string;
-  description: string;
-};
-type ClassFeature = {
-  name: string;
-  description: string;
-};
+}
 
 export type ClassAttributes = {
+  name: string;
   type: ClassTypes;
   description: string;
   sourceOfPower: string;
