@@ -78,6 +78,9 @@ export default function HalfBreedForm() {
       [firstAncestry, secondAncestry],
       selectedTraits,
     );
+
+    // saveCharacter(character);
+    router.push("/form/class")
   }
 
   return (

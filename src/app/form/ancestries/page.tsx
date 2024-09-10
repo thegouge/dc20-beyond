@@ -6,14 +6,15 @@ import { toast } from "sonner";
 import { CharacterContext } from "~/helpers/characterContext";
 // import { saveCharacter } from "~/helpers/localStorage";
 import { ANCESTRY_TRAITS } from "~/constants";
+import { Ancestry } from "~/types";
 
 const ALL_ANCESTRIES = Object.keys(ANCESTRY_TRAITS);
 
 export default function AncestriesPage() {
   const character = useContext(CharacterContext);
   const router = useRouter();
-  const [firstAncestry, setFirstAncestry] = useState("");
-  const [secondAncestry, setSecondAncestry] = useState("");
+  const [firstAncestry, setFirstAncestry] = useState<Ancestry | "">("");
+  const [secondAncestry, setSecondAncestry] = useState<Ancestry | "">("");
 
   function handleSubmit(e: any) {
     e.preventDefault();
@@ -30,7 +31,9 @@ export default function AncestriesPage() {
     }
 
     const chosenAncestry =
-      firstAncestry === "" ? secondAncestry : firstAncestry;
+      firstAncestry === ""
+        ? (secondAncestry as Ancestry)
+        : (firstAncestry as Ancestry);
 
     character.setSingleAncestry(chosenAncestry);
     // saveCharacter(character);
@@ -43,7 +46,7 @@ export default function AncestriesPage() {
       <form onSubmit={handleSubmit}>
         <select
           value={firstAncestry}
-          onChange={(e) => setFirstAncestry(e.target.value)}
+          onChange={(e) => setFirstAncestry(e.target.value as Ancestry)}
           className="capitalize text-black"
         >
           <option value="">--</option>
@@ -57,7 +60,7 @@ export default function AncestriesPage() {
         </select>
         <select
           value={secondAncestry}
-          onChange={(e) => setSecondAncestry(e.target.value)}
+          onChange={(e) => setSecondAncestry(e.target.value as Ancestry)}
           className="capitalize text-black"
         >
           <option value="">--</option>

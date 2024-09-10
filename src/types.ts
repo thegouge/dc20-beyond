@@ -1,4 +1,4 @@
-import { ALL_TRADES } from "./constants";
+import { ALL_TRADES, ANCESTRY_TRAITS } from "./constants";
 
 export class Character {
   constructor() {
@@ -56,7 +56,7 @@ export class Character {
   playerName: string;
   level: number;
   ancestry: string;
-  ancestryFeatures: string[];
+  ancestryFeatures: AncestryTrait[];
   prime: number;
   might: number;
   agility: number;
@@ -166,12 +166,14 @@ export class Character {
     this.languages = langs.filter((langObj) => langObj.level > 0);
   }
 
-  setSingleAncestry(payload: any) {
-    console.log({ payload });
+  setSingleAncestry(chosenAncestry: Ancestry) {
+    this.ancestry = chosenAncestry;
+    this.ancestryFeatures = ANCESTRY_TRAITS[chosenAncestry];
   }
 
   setHybridAncestry(ancestries: Ancestry[], attributes: AncestryTrait[]) {
-    console.log({ancestries, attributes})
+    this.ancestry = ancestries.join(" / ")
+    this.ancestryFeatures = attributes
   }
 
   setClass(payload: any) {
@@ -188,7 +190,7 @@ type CharacterValues = {
   playerName: string;
   level: number;
   ancestry: string;
-  ancestryFeatures: string[];
+  ancestryFeatures: AncestryTrait[];
   prime: number;
   might: number;
   agility: number;
