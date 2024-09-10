@@ -170,6 +170,10 @@ export class Character {
     console.log({ payload });
   }
 
+  setHybridAncestry(ancestries: Ancestry[], attributes: AncestryTrait[]) {
+    console.log({ancestries, attributes})
+  }
+
   setClass(payload: any) {
     console.log({ payload });
   }

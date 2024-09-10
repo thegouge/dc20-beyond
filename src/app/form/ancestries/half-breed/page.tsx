@@ -1,14 +1,16 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { toast } from "sonner";
 import AncestryTraitPicker from "~/components/AncestryTraitPicker";
 import { ANCESTRY_TRAITS } from "~/constants";
+import { CharacterContext } from "~/helpers/characterContext";
 import { Ancestry, AncestryTrait } from "~/types";
 
 export default function HalfBreedForm() {
   const router = useRouter();
+  const character = useContext(CharacterContext);
   const queryParams = useSearchParams();
   const [firstAncestry, secondAncestry] = queryParams.getAll(
     "ancestry",
@@ -45,8 +47,37 @@ export default function HalfBreedForm() {
   }
 
   function handleSubmit(e: any) {
+    if (firstAncestry === undefined || secondAncestry === undefined) {
+      router.back();
+      return;
+    }
+
     e.preventDefault();
-    console.log({ selectedTraits });
+    if (ancestryPoints > 0) {
+      toast.error(
+        "Please choose Ancestries until you have 0 ancestry points! (The cost of each attribute is in parenthesis)",
+      );
+      return;
+    }
+    if (ancestryPoints < 0) {
+      toast.error(
+        "Please remove Ancestries until you have 0 ancestry points! (The cost of each attribute is in parenthesis)",
+      );
+      return;
+    }
+
+    const numFlavor = selectedTraits.filter((trait) => trait.cost === 0);
+    if (numFlavor.length !== 1) {
+      toast.error(
+        'Please choose exactly one (1) "Flavor attribute" (you\'ll find them at the bottom of each attribute list)',
+      );
+      return;
+    }
+
+    character.setHybridAncestry(
+      [firstAncestry, secondAncestry],
+      selectedTraits,
+    );
   }
 
   return (
