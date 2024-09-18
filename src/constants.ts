@@ -4,7 +4,7 @@ import {
   ClassAttributes,
   OtherPro,
   PlayerClasses,
-  Maneuver
+  Maneuver,
 } from "./types";
 
 export const DEFAULT_CHAR_DATA = {
@@ -520,13 +520,21 @@ const MYSTIC_BREATH_WEAPON =
   "Make a Spell Check against every target's MD within the area. Hit: The target takes 1 Draconic damage. Before you make your Spell Check, you can spend 1 SP to increase the damage by 1, or 1 MP to increase it by 2";
 
 const ALL_ATTACK_MANEUVERS: Maneuver[] = [
-  { name: "", description: "" }
-]
+  {
+    name: "Axe",
+    ap: 1,
+    sp: 0,
+    description: `You deal +1 damage, and the target makes a Physical Save against Bleeding (1 True damage at the start of their turn).`,
+    passive: `You deal +1 damage against creatures that are Bloodied (less than 50% HP) or Bleeding.`,
+  },
+];
 
 const EMPTY_MANEUVER: Maneuver = {
   name: "",
-  description: ""
-}
+  ap: 0,
+  sp: 0,
+  description: "",
+};
 
 export const CLASSES: { [key in PlayerClasses]: ClassAttributes } = {
   barbarian: {
@@ -549,7 +557,13 @@ export const CLASSES: { [key in PlayerClasses]: ClassAttributes } = {
     ],
     stamina: 1,
     mana: 0,
-    maneuvers: [...ALL_ATTACK_MANEUVERS, EMPTY_MANEUVER, EMPTY_MANEUVER, EMPTY_MANEUVER, EMPTY_MANEUVER],
+    maneuvers: [
+      ...ALL_ATTACK_MANEUVERS,
+      EMPTY_MANEUVER,
+      EMPTY_MANEUVER,
+      EMPTY_MANEUVER,
+      EMPTY_MANEUVER,
+    ],
     spells: [],
     features: [
       {
@@ -798,4 +812,116 @@ provided 1 of them is a Cantrip. You learn to express your art in a unique manne
   },
 };
 
-
+const MANEUVERS: { [name: string]: Maneuver[] } = {
+  attack: [
+    {
+      name: "Extend Attack",
+      ap: 1,
+      sp: 0,
+      description: `Your Melee Attack Range is increased by 1 Space (or your Ranged Attack Range is increased by 5 Spaces for the Attack Check`,
+    },
+    {
+      name: "Power Attack",
+      ap: 1,
+      sp: 0,
+      description: `You deal +1 damage with the Attack. You can use this Maneuver multiple times.`,
+    },
+    {
+      name: "Sweep Attack",
+      ap: 1,
+      sp: 0,
+      description: `Choose 1 additional target within 1 Space of the original target that’s within your Attack Range. Make 1 Attack Check against all targets. Attack Hit: The original target takes your Weapon (or Unarmed Strike) damage, and each additional target Hit takes 1 damage of the same type.`,
+    },
+  ],
+  save: [
+    {
+      name: "Expose",
+      ap: 1,
+      sp: 0,
+      description: `When the target fails a physical save, the target becomes Exposed (Attacks against it have ADV) against the next Attack made against it before the end of your next turn.`,
+    },
+    {
+      name: "Hamstring",
+      ap: 1,
+      sp: 0,
+      description: `When the target fails a physical save, the target is Slowed (every 1 Space you move costs an extra 1 Space of movement) until the end of your next turn.`,
+    },
+    {
+      name: "Hinder",
+      ap: 1,
+      sp: 0,
+      description: `When the target fails a physical save, the target becomes Hindered (DisADV on Attacks) on the next Attack it makes before the end of your next turn.`,
+    },
+    {
+      name: "Knockback",
+      ap: 1,
+      sp: 0,
+      description: `When a target fails a physical save, the target is pushed 1 Space away + up to 1 additional Space for every 5 it fails its Save by.`,
+    },
+    {
+      name: "Trip",
+      ap: 2,
+      sp: 0,
+      description: `When the target fails a physical save, they fall Prone`,
+    },
+  ],
+  grapple: [
+    {
+      name: "Body Block",
+      ap: 2,
+      sp: 0,
+      trigger: "Yolu are targeted by an Attack",
+      description: `You reposition a creature Grappled by you to shield yourself from damage. You and the Grappled creature take half the damage dealt by the attack and you can move the Grappled creature to any space adjacent to you immediately afterwards.`,
+    },
+    {
+      name: "Restrian",
+      ap: 2,
+      sp: 0,
+      description: `a grappled target is Restrained until the Grapple ends. On its turn, it can spend 1 AP to break being Restrained, but remains Grappled until the Condition ends.`,
+    },
+    {
+      name: "Slam",
+      ap: 1,
+      sp: 0,
+      description: `The grappled target takes 2 bludgeoning damage`,
+    },
+    {
+      name: "Takedown",
+      ap: 1,
+      sp: 0,
+      description: `The grappled target falls Prone`,
+    },
+    {
+      name: "Throw",
+      ap: 1,
+      sp: 0,
+      description: `If the grappled target is your size or smaller, The target is thrown up to a number of Spaces equal to 1/2 of your Might (ending the Grappled Condition) + up to 1 additional Space for every 5 they fail the Contest by.`,
+    },
+  ],
+  defense: [
+    {
+      name: "Parry",
+      ap: 1,
+      sp: 0,
+      trigger:
+        "When a creature you can see within 1 Space (including yourself) is targeted by an Attack",
+      description: ` You grant the target a +5 bonus
+to PD against this Attack.`,
+    },
+    {
+      name: "Protection",
+      ap: 1,
+      sp: 0,
+      trigger: "A creature you can see within 1 space is hit by an attack",
+      description: `The target takes half of the damage and you take the other half. The damage you take bypasses any Damage Reduction.`,
+    },
+    {
+      name: "Raise Shield",
+      ap: 1,
+      sp: 0,
+      trigger:
+        "When a creature you can see within 1 Space (including yourself) is targeted by an Attack",
+      description: `If you're wearing a Shield, you reduce the damage against the target by an amount equal to your Shield's PD bonus.`,
+    },
+  ],
+};

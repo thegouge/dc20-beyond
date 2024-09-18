@@ -284,6 +284,13 @@ interface Feature {
 
 interface ClassFeature extends Feature { }
 
+export interface Maneuver extends Feature {
+  ap: number,
+  sp: number
+  trigger?: string
+  passive?: string
+}
+
 export type Skill = {
   name: string;
   attribute: Attributes;
@@ -323,7 +330,6 @@ export type PlayerClasses =
   | "wizard";
 
 type Equipment = string;
-export interface Maneuver extends Feature { }
 
 interface Spell extends Feature {
   level: number;
