@@ -34,11 +34,7 @@ export default function ClassPage() {
     const classType = CLASSES[chosenClass].type;
     character.setClass(chosenClass, classType);
 
-    if (classType === "martial") {
-      router.push("/form/class/martial");
-    } else if (classType === "spellcaster") {
-      router.push("/form/class/spells");
-    }
+    router.push("/form/class/selections")
   }
 
   return (
