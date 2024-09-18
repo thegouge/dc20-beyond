@@ -4,6 +4,7 @@ import {
   ClassAttributes,
   OtherPro,
   PlayerClasses,
+  Maneuver
 } from "./types";
 
 export const DEFAULT_CHAR_DATA = {
@@ -518,8 +519,18 @@ const ELEMENTAL_BREATH_WEAPON =
 const MYSTIC_BREATH_WEAPON =
   "Make a Spell Check against every target's MD within the area. Hit: The target takes 1 Draconic damage. Before you make your Spell Check, you can spend 1 SP to increase the damage by 1, or 1 MP to increase it by 2";
 
+const ALL_ATTACK_MANEUVERS: Maneuver[] = [
+  { name: "", description: "" }
+]
+
+const EMPTY_MANEUVER: Maneuver = {
+  name: "",
+  description: ""
+}
+
 export const CLASSES: { [key in PlayerClasses]: ClassAttributes } = {
   barbarian: {
+    name: "barbarian",
     type: "martial",
     description:
       "Barbarians charge into battle with reckless abandon, ignoring their own safety as they brush off damage and deal even more in return. They trade defense for more offense and let out blood-crazed battle cries.",
@@ -538,7 +549,7 @@ export const CLASSES: { [key in PlayerClasses]: ClassAttributes } = {
     ],
     stamina: 1,
     mana: 0,
-    maneuvers: ["All Attack Maneuvers", "", "", "", ""],
+    maneuvers: [...ALL_ATTACK_MANEUVERS, EMPTY_MANEUVER, EMPTY_MANEUVER, EMPTY_MANEUVER, EMPTY_MANEUVER],
     spells: [],
     features: [
       {
@@ -565,6 +576,7 @@ your rage ends early if you fall unconscious, die, or you choose to end it for 0
     ],
   },
   bard: {
+    name: "bard",
     type: "spellcaster",
     description: `Bards utilize artistic expression through various forms to connect with the emotions and heart of magic. This includes a wide range of mediums such as, musical instruments, singing, dancing, drawing, painting, sculpting, poetry, storytelling, inspirational speech, and more. They are great at bringing the best out in those around them through both helping and performing, showcasing high proficiency across multiple disciplines. Bards are remarkably flexible and adaptable spellcasters, capable of tapping into a wide array of magical abilities with the appropriate artistic expression.
 
@@ -642,11 +654,12 @@ provided 1 of them is a Cantrip. You learn to express your art in a unique manne
     ],
   },
   cleric: {
-    type: "",
+    name: "cleric",
+    type: "spellcaster",
     description: ``,
     sourceOfPower: ``,
     equipment: [],
-    proficiencies: {},
+    combatMasteries: [],
     stamina: 0,
     mana: 0,
     maneuvers: [],
@@ -654,11 +667,12 @@ provided 1 of them is a Cantrip. You learn to express your art in a unique manne
     features: [{ name: "", description: "" }],
   },
   commander: {
-    type: "",
+    name: "commander",
+    type: "martial",
     description: ``,
     sourceOfPower: ``,
     equipment: [],
-    proficiencies: {},
+    combatMasteries: [],
     stamina: 0,
     mana: 0,
     maneuvers: [],
@@ -666,11 +680,12 @@ provided 1 of them is a Cantrip. You learn to express your art in a unique manne
     features: [{ name: "", description: "" }],
   },
   druid: {
-    type: "",
+    name: "druid",
+    type: "spellcaster",
     description: ``,
     sourceOfPower: ``,
     equipment: [],
-    proficiencies: {},
+    combatMasteries: [],
     stamina: 0,
     mana: 0,
     maneuvers: [],
@@ -678,11 +693,12 @@ provided 1 of them is a Cantrip. You learn to express your art in a unique manne
     features: [{ name: "", description: "" }],
   },
   fighter: {
-    type: "",
+    name: "fighter",
+    type: "martial",
     description: ``,
     sourceOfPower: ``,
     equipment: [],
-    proficiencies: {},
+    combatMasteries: [],
     stamina: 0,
     mana: 0,
     maneuvers: [],
@@ -690,11 +706,12 @@ provided 1 of them is a Cantrip. You learn to express your art in a unique manne
     features: [{ name: "", description: "" }],
   },
   monk: {
-    type: "",
+    name: "monk",
+    type: "martial",
     description: ``,
     sourceOfPower: ``,
     equipment: [],
-    proficiencies: {},
+    combatMasteries: [],
     stamina: 0,
     mana: 0,
     maneuvers: [],
@@ -702,11 +719,12 @@ provided 1 of them is a Cantrip. You learn to express your art in a unique manne
     features: [{ name: "", description: "" }],
   },
   ranger: {
-    type: "",
+    name: "ranger",
+    type: "martial",
     description: ``,
     sourceOfPower: ``,
     equipment: [],
-    proficiencies: {},
+    combatMasteries: [],
     stamina: 0,
     mana: 0,
     maneuvers: [],
@@ -714,11 +732,12 @@ provided 1 of them is a Cantrip. You learn to express your art in a unique manne
     features: [{ name: "", description: "" }],
   },
   rogue: {
-    type: "",
+    name: "rogue",
+    type: "martial",
     description: ``,
     sourceOfPower: ``,
     equipment: [],
-    proficiencies: {},
+    combatMasteries: [],
     stamina: 0,
     mana: 0,
     maneuvers: [],
@@ -726,11 +745,12 @@ provided 1 of them is a Cantrip. You learn to express your art in a unique manne
     features: [{ name: "", description: "" }],
   },
   sorcerer: {
-    type: "",
+    name: "sorcerer",
+    type: "spellcaster",
     description: ``,
     sourceOfPower: ``,
     equipment: [],
-    proficiencies: {},
+    combatMasteries: [],
     stamina: 0,
     mana: 0,
     maneuvers: [],
@@ -738,11 +758,12 @@ provided 1 of them is a Cantrip. You learn to express your art in a unique manne
     features: [{ name: "", description: "" }],
   },
   spellblade: {
-    type: "",
+    name: "spellblade",
+    type: "hybrid",
     description: ``,
     sourceOfPower: ``,
     equipment: [],
-    proficiencies: {},
+    combatMasteries: [],
     stamina: 0,
     mana: 0,
     maneuvers: [],
@@ -750,11 +771,12 @@ provided 1 of them is a Cantrip. You learn to express your art in a unique manne
     features: [{ name: "", description: "" }],
   },
   warlock: {
-    type: "",
+    name: "warlock",
+    type: "spellcaster",
     description: ``,
     sourceOfPower: ``,
     equipment: [],
-    proficiencies: {},
+    combatMasteries: [],
     stamina: 0,
     mana: 0,
     maneuvers: [],
@@ -762,11 +784,12 @@ provided 1 of them is a Cantrip. You learn to express your art in a unique manne
     features: [{ name: "", description: "" }],
   },
   wizard: {
-    type: "",
+    name: "wizard",
+    type: "spellcaster",
     description: ``,
     sourceOfPower: ``,
     equipment: [],
-    proficiencies: {},
+    combatMasteries: [],
     stamina: 0,
     mana: 0,
     maneuvers: [],
@@ -774,3 +797,5 @@ provided 1 of them is a Cantrip. You learn to express your art in a unique manne
     features: [{ name: "", description: "" }],
   },
 };
+
+

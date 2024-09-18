@@ -1,4 +1,4 @@
-import { ALL_TRADES, ANCESTRY_TRAITS } from "./constants";
+import { ALL_TRADES, ANCESTRY_TRAITS, CLASSES } from "./constants";
 
 export class Character {
   constructor() {
@@ -176,8 +176,9 @@ export class Character {
     this.ancestryFeatures = attributes
   }
 
-  setClass(payload: any) {
-    console.log({ payload });
+  setClass(selectedClass: PlayerClasses, type: ClassTypes) {
+    this.charClass = selectedClass
+    this.charClassType = type
   }
 
   setEquipment(payload: any) {
@@ -322,7 +323,7 @@ export type PlayerClasses =
   | "wizard";
 
 type Equipment = string;
-interface Maneuver extends Feature { }
+export interface Maneuver extends Feature { }
 
 interface Spell extends Feature {
   level: number;
