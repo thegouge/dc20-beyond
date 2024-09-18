@@ -1,5 +1,6 @@
 import { useSaveBonus } from "~/helpers/calculators";
-import { Attributes, Character, SKILL_MASTERY_LEVELS } from "~/types";
+import { Attributes, Character } from "~/types";
+import { SKILL_MASTERY_LEVELS } from "~/constants";
 
 type PropTypes = {
   attribute: Attributes | "knowledge";
@@ -7,15 +8,15 @@ type PropTypes = {
 };
 
 export default function SkillList({ attribute, character }: PropTypes) {
-  const baseAttribute: Attributes = attribute === "knowledge" ? "intelligence" : attribute
+  const baseAttribute: Attributes =
+    attribute === "knowledge" ? "intelligence" : attribute;
 
   const skillList = Object.entries(character.skillMasteries[attribute]).map(
     ([skillName, skillLevel]) => {
-
       if (attribute === "knowledge") {
         return (
           <div key={skillName}>
-            {skillName}:
+            {skillName}:{" "}
             {character.intelligence + (SKILL_MASTERY_LEVELS[skillLevel] || 0)}
           </div>
         );
@@ -23,7 +24,7 @@ export default function SkillList({ attribute, character }: PropTypes) {
 
       return (
         <div key={skillName}>
-          {skillName}:
+          {skillName}:{" "}
           {character[attribute] + (SKILL_MASTERY_LEVELS[skillLevel] || 0)}
         </div>
       );
