@@ -34,7 +34,7 @@ export default function ClassPage() {
     const classType = CLASSES[chosenClass].type;
     character.setClass(chosenClass, classType);
 
-    router.push("/form/class/selections")
+    router.push("/form/class/selections");
   }
 
   return (

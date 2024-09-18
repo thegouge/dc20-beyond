@@ -812,7 +812,7 @@ provided 1 of them is a Cantrip. You learn to express your art in a unique manne
   },
 };
 
-const MANEUVERS: { [name: string]: Maneuver[] } = {
+export const MANEUVERS: { [name: string]: Maneuver[] } = {
   attack: [
     {
       name: "Extend Attack",
